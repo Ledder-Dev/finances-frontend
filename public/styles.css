@@ -1,0 +1,651 @@
+/* ============================================================
+   COLOR TOKENS
+   All colors in this file come from these variables.
+   To change the theme: edit here only.
+   ============================================================ */
+:root {
+  /* Text scale — light mode */
+  --text-primary: #1c1712;   /* body text */
+  --text-heading: #333333;   /* h2 headings */
+  --text-body:    #4a4a4a;   /* content names, amounts */
+  --text-label:   #5c5246;   /* form labels */
+  --text-muted:   #6b5f4f;   /* meta, secondary info */
+  --text-subtle:  #7a6e62;   /* tertiary, helper text */
+  --text-faint:   #9a8e84;   /* decorative, counts */
+
+  /* Surfaces */
+  --bg-page:   #f2ede6;
+  --bg-card:   #ffffff;
+  --bg-raised: #faf7f2;   /* receipt lines, group headers */
+  --bg-sunken: #f5f0e6;   /* history panels, darker tint */
+
+  /* Borders */
+  --border:        rgba(100,80,40,0.10);
+  --border-medium: rgba(100,80,40,0.12);
+  --border-strong: rgba(100,80,40,0.15);
+  --border-faint:  rgba(100,80,40,0.06);
+
+  /* Brand */
+  --color-primary:    #2b4980;
+  --color-primary-bg: #e8f0fb;
+  --color-income:     #145a30;
+  --color-expense:    #861a1a;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  padding: 2rem;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+.header { margin-bottom: 1.5rem; }
+.title { font-size: 26px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.3px; }
+.subtitle { font-size: 13px; color: var(--text-muted); }
+h2 { color: var(--text-heading); }
+
+/* ============================================================
+   MONTH SELECTOR
+   ============================================================ */
+.month-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+.month-bar select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg-card);
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   SUMMARY — HERO CARDS
+   ============================================================ */
+.summary-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+.summary-hero {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1rem 1rem;
+  text-align: center;
+  border-top: 3px solid transparent;
+}
+.summary-hero--income { border-top-color: var(--color-income); }
+.summary-hero--spent  { border-top-color: var(--color-expense); }
+.summary-hero--net    { border-top-color: var(--color-primary); }
+.sh-label { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-subtle); margin-bottom: 8px; }
+.sh-value { font-size: 28px; font-weight: 600; line-height: 1; }
+.sh-sub   { font-size: 12px; color: var(--text-subtle); margin-top: 6px; }
+
+/* ============================================================
+   SUMMARY — BREAKDOWN
+   ============================================================ */
+.summary-breakdown {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.bd-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.bd-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--text-muted); }
+.bd-total { font-size: 11px; color: var(--text-faint); }
+.bd-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 46px 90px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-faint);
+}
+.bd-row:last-child { border-bottom: none; }
+.bd-label { font-size: 13px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bd-bar-wrap { background: var(--border); border-radius: 4px; height: 6px; overflow: hidden; }
+.bd-bar { height: 100%; background: var(--color-expense); border-radius: 4px; opacity: .6; }
+.bd-amount { font-size: 12px; color: var(--text-subtle); text-align: right; }
+.bd-amount--main { font-size: 13px; font-weight: 500; color: inherit; }
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-medium);
+}
+.tab {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s;
+}
+.tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 500; }
+.tab:hover:not(.active) { color: var(--text-body); }
+.tab-section { display: none; }
+.tab-section.active { display: block; }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.card h2 { font-size: 15px; font-weight: 600; margin-bottom: 1rem; }
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.form-group { margin-bottom: 0.85rem; }
+.form-group label { display: block; font-size: 12px; font-weight: 500; color: var(--text-label); margin-bottom: 5px; }
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(43,73,128,0.1);
+}
+.unit-price-display {
+  padding: 8px 10px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-label);
+  min-height: 36px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-body);
+  transition: background 0.15s;
+}
+.btn:hover { background: var(--bg-raised); }
+.btn-primary {
+  width: 100%;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  font-weight: 500;
+  padding: 9px;
+  margin-top: 4px;
+}
+.btn-primary:hover { background: #1e3568; }
+.btn-danger { border-color: rgba(134,26,26,0.3); color: var(--color-expense); }
+.btn-danger:hover { background: #fdf2f2; }
+.btn-sm { padding: 4px 10px; font-size: 12px; }
+
+/* ============================================================
+   NEW PRODUCT TOGGLE
+   ============================================================ */
+.new-product-toggle {
+  font-size: 12px;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.85rem;
+  display: block;
+}
+.new-product-fields { display: none; }
+.new-product-fields.visible { display: block; }
+
+/* ============================================================
+   LIST ITEMS
+   ============================================================ */
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-faint);
+  gap: 12px;
+}
+.list-item:last-child { border-bottom: none; }
+.list-item-info { flex: 1; }
+.list-item-name { font-size: 14px; font-weight: 500; color: var(--text-body); }
+.list-item-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.list-item-right { text-align: right; white-space: nowrap; }
+.list-item-amount { font-size: 14px; font-weight: 500; }
+.list-item-unit-price { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.badge {
+  display: inline-block;
+  background: var(--bg-sunken);
+  color: var(--text-label);
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+/* ============================================================
+   MODE TOGGLE
+   ============================================================ */
+.mode-toggle { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+.mode-btn {
+  padding: 7px 16px; font-size: 13px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text-muted);
+}
+.mode-btn.active { background: var(--color-primary-bg); color: var(--color-primary); border-color: var(--color-primary); font-weight: 500; }
+
+/* ============================================================
+   RECEIPT LINES (form)
+   ============================================================ */
+.receipt-line {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: var(--bg-raised);
+}
+.receipt-line-header { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; }
+.receipt-line-header .form-group { margin-bottom: 0; }
+.receipt-line-amounts { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 8px; }
+.receipt-line-amounts .form-group { margin-bottom: 0; }
+.receipt-totals-bar {
+  display: flex; gap: 20px; padding: 10px 0; font-size: 13px;
+  border-top: 1px solid var(--border); margin: 8px 0;
+}
+.receipt-totals-bar span { color: var(--text-muted); }
+.receipt-totals-bar strong { color: var(--text-primary); }
+
+/* ============================================================
+   RECEIPT GROUPS (list)
+   ============================================================ */
+.receipt-group {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.receipt-group-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+}
+.receipt-group-header-left { font-size: 14px; font-weight: 500; color: var(--text-heading); }
+.receipt-group-header-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.receipt-group-header-right { display: flex; align-items: center; gap: 10px; text-align: right; }
+.receipt-group-total { font-size: 14px; font-weight: 500; color: var(--color-expense); }
+.receipt-group-tax { font-size: 11px; color: var(--text-muted); }
+.receipt-group-items { padding: 0 14px; }
+
+/* ============================================================
+   INLINE EDIT FORM
+   ============================================================ */
+.edit-form { display: none; padding: 10px 0; border-bottom: 1px solid var(--border-faint); }
+.edit-form.visible { display: block; }
+.edit-form .form-row { margin-bottom: 8px; }
+.edit-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+/* ============================================================
+   COMPARE TABLE
+   ============================================================ */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.compare-table th {
+  text-align: left; padding: 8px 10px;
+  border-bottom: 1px solid var(--border-medium);
+  font-weight: 700; color: var(--text-label);
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px;
+}
+.compare-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-faint); color: var(--text-body); }
+.compare-table tr:last-child td { border-bottom: none; }
+.best-price { color: var(--color-income); font-weight: 600; }
+
+/* ============================================================
+   SEMANTIC COLOR CLASSES
+   ============================================================ */
+.income      { color: var(--color-income); }
+.expense     { color: var(--color-expense); }
+.net-positive { color: var(--color-income); }
+.net-negative { color: var(--color-expense); }
+
+/* ============================================================
+   SAVINGS
+   ============================================================ */
+.savings-row {
+  display: grid;
+  grid-template-columns: 1fr 160px 140px 120px auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-faint);
+}
+.savings-row:last-child { border-bottom: none; }
+.savings-row-name    { font-size: 14px; font-weight: 500; color: var(--text-body); }
+.savings-balance-amt { font-size: 14px; font-weight: 500; color: var(--text-body); }
+.savings-linked-name { font-size: 11px; color: var(--color-primary); margin-top: 2px; }
+.savings-prev-text   { font-size: 13px; color: var(--text-muted); }
+.savings-delta-positive { color: var(--color-income);  font-size: 13px; }
+.savings-delta-negative { color: var(--color-expense); font-size: 13px; }
+.savings-delta-neutral  { color: var(--text-subtle);   font-size: 13px; }
+
+/* ============================================================
+   FAMILY REMITTANCE
+   ============================================================ */
+.family-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0; border-bottom: 1px solid var(--border-faint); font-size: 14px;
+}
+.family-row:last-child { border-bottom: none; }
+.family-row-label  { color: var(--text-label); }
+.family-row-amount { font-weight: 500; color: var(--text-body); }
+.family-total {
+  display: flex; justify-content: space-between;
+  font-size: 13px; color: var(--text-muted);
+  padding-bottom: 10px; margin-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ============================================================
+   DEBTS
+   ============================================================ */
+.debts-section-title {
+  font-size: 13px; font-weight: 700; color: var(--text-label);
+  margin: 12px 0 6px; padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-faint);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.debts-total {
+  font-size: 13px; font-weight: 500; padding: 8px 0 4px;
+  display: flex; justify-content: space-between;
+}
+.debts-total-label { color: var(--text-body); }
+.debt-settled { opacity: 0.45; text-decoration: line-through; }
+
+/* ============================================================
+   HERO BANNER
+   ============================================================ */
+.hero-banner {
+  text-align: center;
+  padding: 1.75rem 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.hero-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text-subtle); margin-bottom: 10px;
+}
+.hero-net {
+  font-size: 56px; font-weight: 700; line-height: 1; letter-spacing: -2px;
+  background: linear-gradient(135deg, #7a5a10, #c9920a, #e8b84b, #c9920a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-secondary { display: flex; justify-content: center; gap: 3rem; margin: 1.25rem 0 0.5rem; }
+.hero-savings    { font-size: 40px; font-weight: 700; letter-spacing: -1px; color: var(--color-income); }
+.hero-investment { font-size: 40px; font-weight: 700; letter-spacing: -1px; color: var(--color-primary); }
+.hero-pct     { font-size: 14px; color: var(--text-subtle); margin-top: 6px; }
+.hero-formula { font-size: 11px; color: var(--text-faint); margin-top: 3px; }
+
+/* ============================================================
+   PRODUCTS TAB
+   ============================================================ */
+.pt-cat-header {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--text-subtle); padding: 16px 2px 6px;
+}
+.pt-cat-header:first-child { padding-top: 0; }
+.pt-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.pt-group-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-sunken);
+  border-bottom: 1px solid var(--border);
+}
+.pt-type  { font-size: 13px; font-weight: 600; }
+.pt-count { font-size: 12px; color: var(--text-faint); margin-left: auto; }
+.pt-product-row {
+  display: grid; grid-template-columns: 1fr auto auto 16px;
+  align-items: center; gap: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-faint);
+}
+.pt-product-row:last-of-type { border-bottom: none; }
+.pt-product-row:hover { background: var(--bg-raised); }
+.pt-name  { font-size: 13px; font-weight: 500; display: block; color: var(--text-body); }
+.pt-meta  { font-size: 12px; color: var(--text-muted); margin-top: 2px; display: block; }
+.pt-row-right { text-align: right; }
+.pt-unit-price { font-size: 12px; color: var(--text-muted); display: block; }
+.pt-purchases-count { font-size: 11px; color: var(--text-faint); }
+.pt-chevron { font-size: 10px; color: var(--text-faint); text-align: right; }
+.pt-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.pt-actions .btn { padding: 3px 10px; font-size: 12px; }
+.pt-actions .btn:not(.btn-danger) { color: var(--text-muted); }
+.pt-product-edit { padding: 12px 14px; background: var(--bg-sunken); border-top: 1px solid var(--border-faint); }
+.pt-history { background: var(--bg-sunken); border-top: 1px solid var(--border-faint); }
+.pt-history-row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 12px;
+  padding: 7px 14px 7px 24px;
+  border-bottom: 1px solid var(--border-faint);
+}
+.pt-history-row:last-of-type { border-bottom: none; }
+
+/* ============================================================
+   ANALYSIS & CHARTS
+   ============================================================ */
+.metric-label { font-size: 12px; font-weight: 500; color: var(--text-body); }
+.chart-block { margin-bottom: 28px; }
+.chart-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text-subtle); margin-bottom: 8px; font-weight: 700;
+}
+.chart-title.income  { color: var(--color-income); }
+.chart-title.expense { color: var(--color-expense); }
+
+/* ============================================================
+   BANK SYNC
+   ============================================================ */
+.bank-account-name { font-size: 14px; font-weight: 600; color: var(--text-body); }
+.bank-account-sub  { font-size: 12px; color: var(--text-muted); }
+
+/* ============================================================
+   DARK MODE — redefine tokens only, no selector overrides needed
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #e8e0d8;
+    --text-heading: #e8e0d8;
+    --text-body:    #c4b8a8;
+    --text-label:   #9a8e7e;
+    --text-muted:   #9a8e7e;
+    --text-subtle:  #7a6e5e;
+    --text-faint:   #7a6e5e;
+
+    --bg-page:   #1a1614;
+    --bg-card:   #252118;
+    --bg-raised: #2a2520;
+    --bg-sunken: #2a2520;
+
+    --border:        rgba(255,220,160,0.08);
+    --border-medium: rgba(255,220,160,0.12);
+    --border-strong: rgba(255,220,160,0.12);
+    --border-faint:  rgba(255,220,160,0.06);
+
+    --color-primary:    #7fa0e0;
+    --color-primary-bg: #1e3060;
+    --color-income:     #3d9e5f;
+    --color-expense:    #e06060;
+  }
+  /* Structural rules that cannot be expressed as token changes */
+  .btn-primary { color: #c8d8f0; }
+  .btn-primary:hover { background: #3a5ea0; }
+  .hero-investment { color: #5c80c0; }
+  .pt-product-row:hover { background: #2e2822; }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 700px) {
+  body { padding: 1rem; }
+  .sh-value { font-size: 20px; }
+  .bd-row { grid-template-columns: 90px 1fr 36px 72px; gap: 6px; }
+  .form-row, .form-row-3 { grid-template-columns: 1fr; }
+  .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 1px; }
+  .tab { white-space: nowrap; padding: 8px 12px; font-size: 13px; }
+  .hero-net { font-size: 36px; letter-spacing: -1px; }
+  .hero-secondary { gap: 1.5rem; }
+  .hero-savings, .hero-investment { font-size: 26px; }
+  .mode-toggle { flex-wrap: wrap; }
+  .mode-btn { flex: 1; min-width: 0; text-align: center; }
+  .savings-row { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+  .savings-row-name { grid-column: 1 / -1; }
+  .receipt-line-amounts { grid-template-columns: 1fr 1fr; }
+  .receipt-line-amounts .form-group:first-child { grid-column: span 2; }
+  .compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .family-total, .debts-total { flex-direction: column; gap: 2px; }
+}
+
+/* ============================================================
+   SETTINGS MODAL
+   ============================================================ */
+.settings-btn {
+  background: none; border: none; font-size: 20px; cursor: pointer;
+  padding: 4px 8px; border-radius: 8px; color: var(--text-muted);
+  line-height: 1; transition: background 0.15s;
+}
+.settings-btn:hover { background: var(--border); }
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal-box {
+  background: var(--bg-card);
+  border-radius: 14px; padding: 1.5rem; width: 90%; max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+.modal-header h3 { margin: 0; font-size: 16px; font-weight: 600; }
+.modal-close {
+  background: none; border: none; font-size: 22px; cursor: pointer;
+  color: var(--text-muted); line-height: 1; padding: 0 4px;
+}
+.modal-close:hover { color: var(--text-primary); }
+
+/* ============================================================
+   AUTH GATE
+   ============================================================ */
+.auth-gate {
+  position: fixed; inset: 0; background: var(--bg-page);
+  display: flex; align-items: center; justify-content: center; z-index: 2000;
+}
+.auth-box { width: 90%; max-width: 360px; margin-bottom: 0; }
+.auth-error { font-size: 12px; color: var(--color-expense); margin: -4px 0 10px; }
+.auth-toggle { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 14px; }
+.auth-toggle-link {
+  background: none; border: none; color: var(--color-primary); cursor: pointer;
+  font-size: 12px; font-weight: 500; padding: 0 0 0 4px;
+}
+.auth-toggle-link:hover { text-decoration: underline; }
+#bgPreviewImg { width: 100%; border-radius: 8px; margin-bottom: 8px; max-height: 160px; object-fit: cover; }
+
+/* ============================================================
+   BACKGROUND PHOTO MODE
+   Redefines tokens so all components automatically use the
+   correct colors without needing any !important overrides.
+   Only photo-specific layout rules (white header text,
+   frosted tab bar) are explicit selectors here.
+   ============================================================ */
+body.has-bg {
+  /* ① Restore light-mode tokens (beats dark-mode :root values
+       because body is more specific than :root in the cascade) */
+  --text-primary: #1c1712;
+  --text-heading: #333333;
+  --text-body:    #4a4a4a;
+  --text-label:   #5c5246;
+  --text-muted:   #6b5f4f;
+  --text-subtle:  #7a6e62;
+  --text-faint:   #9a8e84;
+  --bg-card:      #faf4ec;
+  --bg-raised:    #f5f0e6;
+  --bg-sunken:    #ede8de;
+  --border:       rgba(100,80,40,0.10);
+  --border-medium: rgba(100,80,40,0.12);
+  --border-strong: rgba(100,80,40,0.15);
+  --color-primary:    #2b4980;
+  --color-primary-bg: #e8f0fb;
+  --color-income:     #145a30;
+  --color-expense:    #861a1a;
+  /* ② Photo layout */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+body.has-bg::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,var(--bg-dim, 0.2));
+  pointer-events: none; z-index: 0;
+}
+body.has-bg > * { position: relative; z-index: 1; }
+/* ③ Card depth shadow (visual polish over photo) */
+body.has-bg .card,
+body.has-bg .summary-hero,
+body.has-bg .summary-breakdown,
+body.has-bg .hero-banner,
+body.has-bg .pt-group,
+body.has-bg .receipt-group { box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
+/* ④ Primary button keeps white text (dark mode structural override) */
+body.has-bg .btn-primary { color: #ffffff; }
+/* ⑤ Header sits directly on photo — needs white text regardless of tokens */
+body.has-bg .title,
+body.has-bg .header .subtitle,
+body.has-bg .settings-btn { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.55); }
+body.has-bg .month-bar label { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.55); }
+body.has-bg #receiptsListSection h2 { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.55); }
+/* ⑥ Tab bar: frosted glass pill over photo */
+body.has-bg .tabs {
+  background: rgba(250,244,236,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 1rem;
+}
