@@ -12,6 +12,8 @@
 
 ## backlog
 
+- [ ] [S] [ops][005] **Rotar secrets filtrados y reescribir historia git** — GitGuardian detectó `UMAMI_PASSWORD` y `PAGESPEED_API_KEY` (Google API Key) expuestos en texto plano en `opencode.json`, commit `70ab062` (ya pusheado a GitHub). Pendiente: (1) compañero rota ambas credenciales — infra compartida, cuenta `amedesarrollo@gmail.com` en `analytics.ladderdev.com` y proyecto Google Cloud; (2) una vez rotadas, `git filter-repo` para sacar `opencode.json` del historial completo + force-push a origin/master. `opencode.json` y `.mcp.json` ya en `.gitignore` para evitar recurrencia. (2026-07-29)
+
 ## doing
 
 ## review
