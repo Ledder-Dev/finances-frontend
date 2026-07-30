@@ -1,0 +1,1 @@
+../../_shared/token-stack/iniciar_opencode.ps1

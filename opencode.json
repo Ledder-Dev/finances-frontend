@@ -1,0 +1,67 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "semgrep": {
+      "type": "remote",
+      "url": "https://mcp.semgrep.ai/mcp"
+    },
+    "glitchtip": {
+      "type": "remote",
+      "url": "https://glitchtip.ladderdev.com/mcp"
+    },
+    "umami": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@mikusnuz/umami-mcp"
+      ],
+      "environment": {
+        "UMAMI_URL": "https://analytics.ladderdev.com",
+        "UMAMI_USERNAME": "amedesarrollo@gmail.com",
+        "UMAMI_PASSWORD": "JVBzkSjQ"
+      }
+    },
+    "pagespeed": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-server-pagespeed"
+      ],
+      "environment": {
+        "PAGESPEED_API_KEY": "AIzaSyDmW_mll3KFebEfw5tmNAsARcvtax_qvAg"
+      }
+    },
+    "playwright-brave": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "chromium",
+        "--launch-options",
+        "{\"executablePath\":\"C:\\\\Program Files\\\\BraveSoftware\\\\Brave-Browser\\\\Application\\\\brave.exe\",\"headless\":false}"
+      ]
+    },
+    "playwright-edge": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "msedge"
+      ]
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    }
+  }
+}
