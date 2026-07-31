@@ -28,8 +28,8 @@ export async function loadSavings() {
     if (a.balance !== null) { totalBalance += a.balance; hasBalance = true; }
     if (a.prev_balance !== null) { totalPrev += a.prev_balance; hasPrev = true; }
 
-    const linked = tellerAccounts && a.teller_account_id
-      ? tellerAccounts.find(t => t.account_id === a.teller_account_id)
+    const linked = tellerAccounts && a.plaid_account_id
+      ? tellerAccounts.find(t => t.account_id === a.plaid_account_id)
       : null;
 
     const balanceCell = linked

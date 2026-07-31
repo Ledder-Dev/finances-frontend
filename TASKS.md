@@ -12,7 +12,7 @@
 
 ## backlog
 
-- [ ] [S] [ops][005] **Rotar secrets filtrados y reescribir historia git** — GitGuardian detectó `UMAMI_PASSWORD` y `PAGESPEED_API_KEY` (Google API Key) expuestos en texto plano en `opencode.json`, commit `70ab062` (ya pusheado a GitHub). Pendiente: (1) compañero rota ambas credenciales — infra compartida, cuenta `amedesarrollo@gmail.com` en `analytics.ladderdev.com` y proyecto Google Cloud; (2) una vez rotadas, `git filter-repo` para sacar `opencode.json` del historial completo + force-push a origin/master. `opencode.json` y `.mcp.json` ya en `.gitignore` para evitar recurrencia. (2026-07-29)
+- [ ] [S] [ops][005] **Reescribir historia git (opcional, no priorizada)** — GitGuardian detectó `UMAMI_PASSWORD` y `PAGESPEED_API_KEY` expuestos en texto plano en `opencode.json`, commit `70ab062`. Rotación de ambas credenciales: **hecha** por compañero (2026-07-30). Reescritura de historia (`git filter-repo` + force-push a `origin/master` y `origin/development`, ambas ramas comparten el commit) descartada por decisión del usuario — secretos ya rotados, riesgo/beneficio de reescribir no lo justifica. `opencode.json` y `.mcp.json` ya en `.gitignore` para evitar recurrencia. (2026-07-30)
 
 ## doing
 
@@ -20,6 +20,8 @@
 
 ## done
 
+- [x] [S] [app][007] **Merge `.claude/CLAUDE.md` en `CLAUDE.md`** — trigger `/graphify` movido a sección `## graphify` de `CLAUDE.md` raíz del mundo; `.claude/CLAUDE.md` eliminado (redundante). (2026-07-30)
+- [x] [S] [app][006] **Fix link cuenta bancaria en Savings tab** — `src/savings.js` comparaba `a.teller_account_id` (campo viejo, ya no existe en response de `/api/savings`) contra `t.account_id` de `/api/teller/balances`; backend renombró el campo a `plaid_account_id` al migrar de Teller a Plaid. Balance sí sincronizaba pero UI nunca mostraba "Auto — banco" tras enlazar. Corregido: comparación ahora usa `a.plaid_account_id`. Verificado en navegador real por el usuario — las 3 cuentas enlazadas (Ive's Checking, Ive's Savings, My Savings) muestran estado "Auto" tras el fix. También verificado en sesión: conexión Plaid real funciona end-to-end (create-link-token → Link modal → exchange-token → balances/enrollments cargan tras "Check now"). Cuenta vieja huérfana de config Teller anterior ("Customized Cash Rewards Visa Signature") sigue apareciendo — pendiente que el usuario pruebe botón Disconnect; si no limpia, es dato huérfano en DB de `finances-backend`, fuera de alcance de este mundo. (2026-07-30)
 - [x] [P] [app][003] **README.md** — expandido: requisitos, variables de entorno (`VITE_API_BASE_URL`), desarrollo, build/preview, testing, estructura completa de `src/*.js` y nota de deploy. (2026-07-29)
 - [x] [P] [app][002] **Agregar tests** — Vitest + jsdom instalados, `npm test` corre `vitest run`. Alcance: funciones puras/aisladas extraídas en #001 — `trimmedMean` (analysis), `unitOptions`/`categoryInput`/`typeInputHtml`/`findProduct` (ui-helpers), resolución de `API_BASE` con/sin `VITE_API_BASE_URL` y `apiFetch` (inyección de header Authorization), 17 tests. NO se persigue cobertura de flujos de render/DOM completos (fuera de proporción para SPA sin capa de dominio separada). (2026-07-29)
 - [x] [S] [app][004] **Config API_BASE por env var** — `import.meta.env.VITE_API_BASE_URL` con fallback a heurística de hostname; `.env.example` agregado. (2026-07-29)

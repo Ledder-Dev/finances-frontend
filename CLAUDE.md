@@ -19,6 +19,9 @@ y `.claude/CURRENT_STATUS.md` pa detalle.
 
 ## graphify
 
+- **graphify** (`.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+
 Proyecto tiene knowledge graph en graphify-out/: god nodes, community structure, cross-file relationships.
 
 Rules:
