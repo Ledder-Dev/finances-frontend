@@ -12,14 +12,13 @@
 
 ## backlog
 
-- [ ] [S] [ops][005] **Reescribir historia git (opcional, no priorizada)** — GitGuardian detectó `UMAMI_PASSWORD` y `PAGESPEED_API_KEY` expuestos en texto plano en `opencode.json`, commit `70ab062`. Rotación de ambas credenciales: **hecha** por compañero (2026-07-30). Reescritura de historia (`git filter-repo` + force-push a `origin/master` y `origin/development`, ambas ramas comparten el commit) descartada por decisión del usuario — secretos ya rotados, riesgo/beneficio de reescribir no lo justifica. `opencode.json` y `.mcp.json` ya en `.gitignore` para evitar recurrencia. (2026-07-30)
-
 ## doing
 
 ## review
 
 ## done
 
+- [x] [S] [ops][005] **Reescribir historia git — descartada** — GitGuardian detectó `UMAMI_PASSWORD` y `PAGESPEED_API_KEY` expuestos en texto plano en `opencode.json`, commit `70ab062`. Rotación de ambas credenciales: hecha por compañero (2026-07-30). Reescritura de historia (`git filter-repo` + force-push a `origin/master` y `origin/development`, ambas ramas comparten el commit) descartada por decisión del usuario — secretos ya rotados, riesgo/beneficio de reescribir no lo justifica. `opencode.json` y `.mcp.json` ya en `.gitignore` para evitar recurrencia. Cerrado como decisión final, no pendiente. (2026-08-01)
 - [x] [S] [app][009] **Fix pantalla negra en LAN móvil** — `auth.init()` en `src/auth.js` no tenía try/catch: si `apiFetch('/api/auth/me')` fallaba (backend inalcanzable desde móvil por LAN), la promesa rechazaba sin manejo, ni `showAuthGate()` ni `hideAuthGate()` corrían, y quedaba visible el fondo oscuro (`--bg-page`) sin gate ni container — pantalla negra. Agregado try/catch: en error de red se loguea y se muestra el auth gate. Causa raíz de por qué el backend es inalcanzable desde móvil (host bind, firewall, CORS) queda por confirmar del lado de `finances-backend` — fuera de este mundo. (2026-07-31)
 - [x] [S] [app][008] **ADR 002 modularización ES modules** — `docs/adr/002-modularizacion-es-modules.md` documenta decisión ya ejecutada (#001), alternativas descartadas y consecuencias. Cuenta huérfana Teller confirmada limpia por el usuario. (2026-07-31)
 - [x] [S] [app][007] **Merge `.claude/CLAUDE.md` en `CLAUDE.md`** — trigger `/graphify` movido a sección `## graphify` de `CLAUDE.md` raíz del mundo; `.claude/CLAUDE.md` eliminado (redundante). (2026-07-30)

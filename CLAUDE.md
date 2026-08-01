@@ -1,6 +1,7 @@
 # Mundo: finances-frontend
 
 @../../CLAUDE.md
+@$AI_OS_ROOT/_shared/contracts/finances/api-contract.yaml
 
 ## Contexto específico
 Frontend single-page (vanilla JS + Vite), tracker finanzas personales/familiares. Consume `finances-backend` (puerto 3001): login/signup JWT, compras/recibos OCR, ingresos/gastos, ahorros, deudas, remesas familiares, sync bancario vía Plaid. Repo: https://github.com/camachoeng/finances-frontend
