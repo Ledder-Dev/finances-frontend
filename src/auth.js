@@ -53,12 +53,17 @@ export async function logout() {
 }
 
 export async function init() {
-  const res = await apiFetch('/api/auth/me');
-  const { data: user } = await res.json();
-  if (!user) {
+  try {
+    const res = await apiFetch('/api/auth/me');
+    const { data: user } = await res.json();
+    if (!user) {
+      showAuthGate();
+      return;
+    }
+    hideAuthGate();
+    await loadApp();
+  } catch (err) {
+    console.error('auth.init failed:', err);
     showAuthGate();
-    return;
   }
-  hideAuthGate();
-  await loadApp();
 }
