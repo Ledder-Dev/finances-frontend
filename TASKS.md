@@ -12,6 +12,8 @@
 
 ## backlog
 
+- [ ] [S] [ops][010] **Deploy GitHub Pages + migrar repo a github.com/Ledder-Dev** — usuario quiere desplegar el front via GitHub Pages y copiar el repo a la org Ledder-Dev pa trabajar ahí en adelante (repo viejo `camachoeng/finances-frontend` queda intacto). Bloqueado en decisión de visibilidad del repo nuevo (público vs privado) — org Ledder-Dev está en plan free, GitHub Pages gratis solo funciona con repo público. Hallazgos ya confirmados (ver memory `project_ledder_dev_migration`): `src/api.js` resuelve `API_BASE` a `http://<hostname>:3001` sin `VITE_API_BASE_URL`, rompe en GitHub Pages porque `finances-backend` no tiene URL pública HTTPS todavía; falta `base:` en `vite.config.js`; sin workflows `.github/`; nombre repo nuevo acordado: `finances-frontend`. (2026-08-03)
+
 ## doing
 
 ## review
