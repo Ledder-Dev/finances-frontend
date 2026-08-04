@@ -1,7 +1,8 @@
 # ADR 003 — Migración de repo a `Ledder-Dev` + deploy en GitHub Pages
 
 ## Estado
-Aceptado
+Parcialmente revertido (2026-08-04) — ver actualización al final. Migración
+de repo sigue aceptada, deploy en Pages descartado.
 
 ## Fecha
 2026-08-04
@@ -44,3 +45,12 @@ visibilidad.
   `.mcp.json`, `opencode.json`, `graphify-out/`.
 - CI corre en cada push a `master` — build falla ahí si `npm run build`
   rompe, señal temprana antes de llegar a producción.
+
+## Actualización — deploy en Pages revertido (2026-08-04)
+Usuario recibió notificación de GitHub sobre configuración de la org
+`Ledder-Dev` que impide el deploy vía Pages (detalle exacto no confirmado en
+este mundo). Revertido: sitio Pages deshabilitado en el repo, workflow
+`.github/workflows/deploy-pages.yml` eliminado, `base` removido de
+`vite.config.js`. La migración del repo a `Ledder-Dev/finances-frontend`
+(código + historia) se mantiene — solo se descartó el mecanismo de deploy.
+Forma de deploy queda por decidir en sesión futura.
