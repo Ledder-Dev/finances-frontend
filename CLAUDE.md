@@ -4,7 +4,7 @@
 @$AI_OS_ROOT/_shared/contracts/finances/api-contract.yaml
 
 ## Contexto específico
-Frontend single-page (vanilla JS + Vite), tracker finanzas personales/familiares. Consume `finances-backend` (puerto 3001): login/signup JWT, compras/recibos OCR, ingresos/gastos, ahorros, deudas, remesas familiares, sync bancario vía Plaid. Repo: https://github.com/camachoeng/finances-frontend
+Frontend single-page (vanilla JS + Vite), tracker finanzas personales/familiares. Consume `finances-backend` (puerto 3001): login/signup JWT, compras/recibos OCR, ingresos/gastos, ahorros, deudas, remesas familiares, sync bancario vía Plaid. Repo: https://github.com/Ledder-Dev/finances-frontend (repo viejo `camachoeng/finances-frontend` queda como remote secundario `camachoeng`, sin actividad)
 
 ## Stack
 - Vanilla JS (ES6+) + HTML + CSS, sin framework UI
