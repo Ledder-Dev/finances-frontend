@@ -1,6 +1,7 @@
 import { state, DEFAULT_PRODUCT_CATEGORIES, UNITS, txDefaultCategories } from './state.js';
 import { categoryInput, populateTypeSelect, findProduct } from './ui-helpers.js';
 import { loadFamilyMembers, loadFamily, loadBankEnrollments, loadBankBalances, loadPendingTransactions, refreshBankBadge } from './family-bank.js';
+import { loadRecurringTransactions } from './recurring.js';
 import { loadReceipts } from './receipts.js';
 import { loadSavings } from './savings.js';
 import { loadDebts } from './debts.js';
@@ -11,7 +12,8 @@ import { loadBackground } from './settings.js';
 
 export async function loadApp() {
   const now = new Date();
-  state.currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  state.currentMonth = localStorage.getItem('currentMonth') || defaultMonth;
   const today = now.toISOString().split('T')[0];
 
   document.getElementById('purchaseDate').value = today;
@@ -27,7 +29,7 @@ export async function loadApp() {
   document.getElementById('purchaseAmount').addEventListener('input', updateUnitPrice);
   document.getElementById('productSearch').addEventListener('input', onProductSearch);
 
-  await Promise.all([loadMonths(), loadProducts(), loadStores(), loadProductCategories(), loadTransactionCategories(), loadFamilyMembers(), loadBankEnrollments(), refreshBankBadge()]);
+  await Promise.all([loadMonths(), loadProducts(), loadStores(), loadProductCategories(), loadTransactionCategories(), loadFamilyMembers(), loadBankEnrollments(), refreshBankBadge(), loadRecurringTransactions()]);
   await loadProductTypes(); // must run after loadProducts so allProducts is ready
   await loadBackground();
   await refreshAll();
@@ -75,7 +77,11 @@ export async function loadMonths() {
     opt.selected = m === state.currentMonth;
     sel.appendChild(opt);
   });
-  sel.addEventListener('change', e => { state.currentMonth = e.target.value; refreshAll(); });
+  sel.addEventListener('change', e => {
+    state.currentMonth = e.target.value;
+    localStorage.setItem('currentMonth', state.currentMonth);
+    refreshAll();
+  });
 }
 
 export async function refreshAll() {

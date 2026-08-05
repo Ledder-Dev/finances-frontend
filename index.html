@@ -256,6 +256,40 @@
         <h2>Income & expenses this month</h2>
         <div id="txList"></div>
       </div>
+
+      <div class="card">
+        <h2>Add fixed income or expense</h2>
+        <p style="color:#999;font-size:13px;margin-top:-8px;margin-bottom:12px;">Added automatically every month. Edit or delete a given month's entry without affecting future months — remove it here to stop it entirely.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="recType" onchange="updateRecCategories()">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" id="recCategory" list="txCategoryList" placeholder="e.g. Rent">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" id="recDesc" placeholder="e.g. Monthly rent">
+          </div>
+          <div class="form-group">
+            <label>Amount ($)</label>
+            <input type="number" id="recAmount" placeholder="0.00" step="0.01" min="0.01">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addRecurringTransaction()">Add fixed item</button>
+      </div>
+
+      <div class="card" id="recurringListCard" style="display:none;">
+        <h2>Fixed items</h2>
+        <div id="recurringList"></div>
+      </div>
     </div>
 
     <!-- PRODUCTS TAB -->
