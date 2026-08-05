@@ -154,11 +154,17 @@ export async function loadBankEnrollments() {
         </div>
         <button onclick="disconnectEnrollment(${e.id}, '${e.institution_name.replace(/'/g, "\\'")}')" style="background:#fef2f2;color:#ef4444;border:1px solid #fecaca;padding:4px 12px;font-size:12px;border-radius:6px;cursor:pointer;">Disconnect</button>
       </div>
-      ${e.sync_error ? `
-        <div style="margin-top:8px;padding:8px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;font-size:13px;color:#b91c1c;">
-          Connection lost — please disconnect and reconnect this account to restore sync.
+      ${e.sync_error ? (() => {
+        const loginRequired = e.sync_error.startsWith('Login required');
+        const bg = loginRequired ? '#fef2f2' : '#fffbeb';
+        const border = loginRequired ? '#fecaca' : '#fde68a';
+        const color = loginRequired ? '#b91c1c' : '#92400e';
+        return `
+        <div style="margin-top:8px;padding:8px 12px;background:${bg};border:1px solid ${border};border-radius:6px;font-size:13px;color:${color};">
+          ${e.sync_error}
         </div>
-      ` : ''}
+      `;
+      })() : ''}
     </div>
   `).join('');
 }
