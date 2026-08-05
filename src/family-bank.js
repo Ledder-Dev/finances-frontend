@@ -242,9 +242,8 @@ export async function loadPendingTransactions() {
             <option value="expense" ${tx.type === 'expense' ? 'selected' : ''}>Expense</option>
             <option value="income" ${tx.type === 'income' ? 'selected' : ''}>Income</option>
           </select>
-          <select id="teller-cat-${i}" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:13px;flex:1;min-width:120px;">
-            ${cats.map(c => `<option value="${c}">${c}</option>`).join('')}
-          </select>
+          <input type="text" id="teller-cat-${i}" list="teller-cat-list-${i}" value="${cats[0] || ''}" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:13px;flex:1;min-width:120px;">
+          <datalist id="teller-cat-list-${i}">${cats.map(c => `<option value="${c}">`).join('')}</datalist>
           <button class="btn btn-primary" style="width:auto;padding:6px 16px;font-size:13px;" onclick="addTellerTransaction(${i})">Add</button>
           <button class="btn" style="width:auto;padding:6px 16px;font-size:13px;background:#f5f5f5;color:#666;" onclick="dismissTellerTransaction(${i})">Skip</button>
         </div>
@@ -283,11 +282,12 @@ export async function refreshBankBadge() {
 
 export function onTellerTypeChange(i) {
   const type = document.getElementById(`teller-type-${i}`).value;
-  const catSel = document.getElementById(`teller-cat-${i}`);
+  const catList = document.getElementById(`teller-cat-list-${i}`);
   const cats = type === 'expense'
     ? [...new Set([...state.dbTxCategories.expense, ...txDefaultCategories.expense])]
     : [...new Set([...state.dbTxCategories.income, ...txDefaultCategories.income])];
-  catSel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  catList.innerHTML = cats.map(c => `<option value="${c}">`).join('');
+  document.getElementById(`teller-cat-${i}`).value = cats[0] || '';
 }
 
 export async function addTellerTransaction(i) {
