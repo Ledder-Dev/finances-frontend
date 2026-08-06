@@ -118,10 +118,9 @@ export async function loadAnalysis() {
     </table>
   `;
 
-  const now = new Date();
-  const realCurrentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-  const last12 = data.months.filter(m => m.month !== realCurrentMonth).slice(0, 12);
-  const allPast = data.months.filter(m => m.month !== realCurrentMonth);
+  const upToSelected = data.months.filter(m => m.month <= state.currentMonth && m.month !== state.currentMonth);
+  const last12 = upToSelected.slice(0, 12);
+  const allPast = upToSelected;
 
   const heroBanner = document.getElementById('heroBanner');
   if (allPast.length) {
