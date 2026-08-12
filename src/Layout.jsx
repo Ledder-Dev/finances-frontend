@@ -5,6 +5,7 @@ import { apiFetch } from './api.js';
 import { TabNav, TAB_IDS } from './components/TabNav.jsx';
 import { PurchaseForm } from './products/PurchaseForm.jsx';
 import { ProductList } from './products/ProductList.jsx';
+import { TransactionsTab } from './transactions/TransactionsTab.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -52,6 +53,7 @@ export function Layout() {
         <div key={id} id={`tab-${id}`} className={`tab-section${activeTab === id ? ' active' : ''}`}>
           {id === 'purchases' && <PurchaseForm />}
           {id === 'products' && <ProductList active={activeTab === 'products'} />}
+          {id === 'transactions' && <TransactionsTab />}
         </div>
       ))}
     </div>
