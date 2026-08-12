@@ -12,7 +12,6 @@
 
 ## backlog
 
-- [ ] [S] [react][020] **Estado global → Context/hooks** — reemplaza `src/state.js` (objeto mutable global) por Context API + hooks por dominio (sin Redux). Depende de #018. (2026-08-12)
 - [ ] [S] [react][021] **UI helpers compartidos** — porta `src/ui-helpers.js` (`categoryInput`, `populateTypeSelect`, `typeInputHtml`, `unitOptions`, `findProduct`) a hooks/componentes reutilizables, consumidos por los dominios de abajo. Depende de #018. (2026-08-12)
 - [ ] [S] [react][022] **Layout base + navegación por tabs** — reemplaza estructura de `index.html` (tabs manuales) por `App`/`Layout`/`TabNav`, mismo `styles.css` sin rediseño. Depende de #019/#020. (2026-08-12)
 - [ ] [P] [react][023] **Dominio Products/Purchases** — porta la mitad de `src/core.js` (búsqueda/alta de producto, compras CRUD). Depende de #021/#022. (2026-08-12)
@@ -35,6 +34,8 @@
 ## review
 
 ## done
+
+- [x] [S] [react][020] **Estado global → Context/hooks** — `src/state/AppStateContext.jsx` nuevo: `AppStateProvider` + hooks por dominio (`useCurrentMonth`, `useProducts`, `useFamilyMembers`, `useTxCategories`, `usePlaidSyncData`, `useHeroStats`), reemplaza el objeto mutable `state` de `src/state.js` para el lado React (sin Redux, un solo context + `useState` por slice). `currentMonth` persiste a `localStorage` igual que vanilla. `src/state.js` NO se toca — sigue vivo pa vanilla (10 consumidores) hasta cutover (#034); sus constantes puras (`DEFAULT_PRODUCT_CATEGORIES`, `UNITS`, `txDefaultCategories`) son reusables tal cual desde React, no requieren context. Deliberadamente fuera: `isNewProduct`/`rlCounter`/`lastKnownUnitPrice`/`rlLastUnitPrice` (estado local de un form, no global — vive en el componente de #023) y `chartInstances` (refs imperativos de Chart.js — `useRef` local en #031, no context). `main.jsx` envuelve `<App/>` en `<AppStateProvider>` (dentro de `AuthProvider`). Verificado: `npm run build` limpio, suite vanilla sin regresión. (2026-08-12)
 
 - [x] [S] [react][019] **Auth context/hook** — `src/AuthContext.jsx` nuevo: `AuthProvider`/`useAuth` (login/signup/logout/status/user/error), reemplaza `src/auth.js` para el lado React. `src/api.js` decuplado de `auth.js`/DOM: se quitó el import directo de `showAuthGate` y el `authToken()`/`localStorage` vestigial (sesión es cookie httpOnly de Better-Auth, ver ADR 004) — ahora expone `setUnauthorizedHandler(fn)`, registrado tanto por `auth.js` (vanilla, sigue mostrando el auth gate en 401) como por `AuthProvider` (React, resetea a `status:'anon'`). `main.jsx` envuelve `<App/>` en `<AuthProvider>`; `App.jsx` placeholder ahora consume `useAuth()` pa smoke-test. Verificado: `npm run build` limpio (ambas entradas), suite vanilla sin regresión (mismos 2 fallos preexistentes de `.env.local`, no nuevos). (2026-08-12)
 
