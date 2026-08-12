@@ -12,7 +12,6 @@
 
 ## backlog
 
-- [ ] [S] [react][018] **Scaffold React 19 + Vite** — en rama `feature/react-migration`. `npm create vite@latest -- --template react`, integra con `package.json` existente (mantiene `vitest` para tests). Sin router (`react-router-dom`) ni state library — YAGNI, ver ADR 005. (2026-08-12)
 - [ ] [S] [react][019] **Auth context/hook** — reemplaza `src/auth.js` (login/signup gate imperativo) por `AuthProvider`/`useAuth`. Reusa `src/api.js` (`apiFetch`, `credentials:'include'`) casi tal cual — no está acoplado al DOM. Depende de #018. (2026-08-12)
 - [ ] [S] [react][020] **Estado global → Context/hooks** — reemplaza `src/state.js` (objeto mutable global) por Context API + hooks por dominio (sin Redux). Depende de #018. (2026-08-12)
 - [ ] [S] [react][021] **UI helpers compartidos** — porta `src/ui-helpers.js` (`categoryInput`, `populateTypeSelect`, `typeInputHtml`, `unitOptions`, `findProduct`) a hooks/componentes reutilizables, consumidos por los dominios de abajo. Depende de #018. (2026-08-12)
@@ -37,6 +36,8 @@
 ## review
 
 ## done
+
+- [x] [S] [react][018] **Scaffold React 19 + Vite** — `react@19`/`react-dom@19` + `@vitejs/plugin-react@^4` (v6 pedía Vite 8, incompatible con Vite 6 actual, pineado a v4). `react-app.html` nuevo (entrada Vite multi-page paralela a `index.html`, sin tocar el vanilla que sigue sirviendo) con `src/main.jsx`/`App.jsx` placeholder — se retira en cutover (#034). `vite.config.js`: `plugins:[react()]` + `build.rollupOptions.input` con ambas entradas. Sin `react-router-dom` ni state library — YAGNI, ver ADR 005. Verificado: `npm run build` limpio (ambas entradas en `dist/`), `npm run dev` sirve HMR real en `/react-app.html`, suite vanilla intacta (2 fallos preexistentes en `api.test.js` por `.env.local` con puerto distinto al hardcodeado en el test, no relacionado a este scaffold). (2026-08-12)
 
 - [x] [S] [app][017] **Fix historic net / avg-12 / investment funds no recalculaban al cambiar mes** — `loadAnalysis()` en `src/analysis.js` filtraba meses contra `new Date()` (fecha real de hoy) en vez de `state.currentMonth` (mes seleccionado en selector top). `heroNet`, avg últimos 12 e investment funds (via `heroAvgExpenses12` → `updateHeroInvestment()`) quedaban fijos sin importar el mes elegido. Corregido: ahora filtra meses `<= state.currentMonth`, excluyendo el seleccionado (mismo criterio que antes excluía "hoy"). Bug relacionado en `finances-backend`: `/api/months` (selector top) listaba meses con solo entrada manual en `monthly_summaries` sin transacciones reales — corregido del lado backend, `/api/analysis` sigue incluyendo esos meses manuales aparte (correcto, es su propósito). (2026-08-06)
 - [x] [S] [app][016] **Mostrar mensaje real de `sync_error` en Bank Sync** — backend cambió `sync_error` de booleano a string real (rate-limited/auto-retry, login-required, o error crudo de Plaid). Frontend mostraba "Connection lost — reconnect" pa cualquier caso, incluyendo rate limit de Plaid que se autolimpia con backoff de 4h en backend — reconectar en ese caso quemaba una sesión de Plaid Link sin necesidad. Ahora renderiza el mensaje real, estilo rojo solo cuando es login-required. (2026-08-05)
