@@ -1,6 +1,8 @@
 import { state } from './state.js';
-import { apiFetch } from './api.js';
+import { apiFetch, setUnauthorizedHandler } from './api.js';
 import { loadApp } from './core.js';
+
+setUnauthorizedHandler(showAuthGate);
 
 export function showAuthGate() {
   document.getElementById('authGate').style.display = 'flex';
@@ -41,14 +43,12 @@ export async function submitAuth() {
     errEl.style.display = 'block';
     return;
   }
-  localStorage.setItem('authToken', body.data.token);
   hideAuthGate();
   await loadApp();
 }
 
 export async function logout() {
   await apiFetch('/api/auth/logout', { method: 'POST' });
-  localStorage.removeItem('authToken');
   showAuthGate();
 }
 
