@@ -8,6 +8,7 @@ import { ProductList } from './products/ProductList.jsx';
 import { TransactionsTab } from './transactions/TransactionsTab.jsx';
 import { FamilyTab } from './family-bank/FamilyTab.jsx';
 import { BankTab } from './family-bank/BankTab.jsx';
+import { SavingsTab } from './savings/SavingsTab.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -64,6 +65,7 @@ export function Layout() {
           {id === 'purchases' && <PurchasesTab />}
           {id === 'products' && <ProductList active={activeTab === 'products'} />}
           {id === 'transactions' && <TransactionsTab />}
+          {id === 'savings' && <SavingsTab active={activeTab === 'savings'} />}
           {id === 'family' && <FamilyTab active={activeTab === 'family'} />}
           {id === 'bank' && <BankTab active={activeTab === 'bank'} onPendingCountChange={setBankPendingCount} />}
         </div>
