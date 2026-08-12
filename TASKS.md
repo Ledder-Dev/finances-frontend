@@ -12,6 +12,24 @@
 
 ## backlog
 
+- [ ] [S] [react][018] **Scaffold React 19 + Vite** — en rama `feature/react-migration`. `npm create vite@latest -- --template react`, integra con `package.json` existente (mantiene `vitest` para tests). Sin router (`react-router-dom`) ni state library — YAGNI, ver ADR 005. (2026-08-12)
+- [ ] [S] [react][019] **Auth context/hook** — reemplaza `src/auth.js` (login/signup gate imperativo) por `AuthProvider`/`useAuth`. Reusa `src/api.js` (`apiFetch`, `credentials:'include'`) casi tal cual — no está acoplado al DOM. Depende de #018. (2026-08-12)
+- [ ] [S] [react][020] **Estado global → Context/hooks** — reemplaza `src/state.js` (objeto mutable global) por Context API + hooks por dominio (sin Redux). Depende de #018. (2026-08-12)
+- [ ] [S] [react][021] **UI helpers compartidos** — porta `src/ui-helpers.js` (`categoryInput`, `populateTypeSelect`, `typeInputHtml`, `unitOptions`, `findProduct`) a hooks/componentes reutilizables, consumidos por los dominios de abajo. Depende de #018. (2026-08-12)
+- [ ] [S] [react][022] **Layout base + navegación por tabs** — reemplaza estructura de `index.html` (tabs manuales) por `App`/`Layout`/`TabNav`, mismo `styles.css` sin rediseño. Depende de #019/#020. (2026-08-12)
+- [ ] [P] [react][023] **Dominio Products/Purchases** — porta la mitad de `src/core.js` (búsqueda/alta de producto, compras CRUD). Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][024] **Dominio Transactions** — porta el resto de `src/core.js` (transacciones CRUD, categorías). Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][025] **Dominio Receipts** — porta `src/receipts.js` (scan OCR, líneas de ítems CRUD). Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][026] **Dominio Recurring/Fixed items** — porta `src/recurring.js`. Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][027] **Dominio Family Bank (Plaid)** — porta `src/family-bank.js` (Plaid Link, sync bancario, family members). Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][028] **Dominio Savings** — porta `src/savings.js`. Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][029] **Dominio Debts** — porta `src/debts.js`. Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][030] **Dominio Settings** — porta `src/settings.js` (modal, background image). Depende de #021/#022. (2026-08-12)
+- [ ] [P] [react][031] **Dashboard Analysis + Hero** — porta `src/analysis.js` + `src/hero.js`. Decidir integración Chart.js (`react-chartjs-2` vs ref imperativo — recomendado `react-chartjs-2`, wrapper oficial-adyacente). Depende de #021/#022. (2026-08-12)
+- [ ] [S] [react][032] **Tests** — porta `analysis.test.js`/`api.test.js`/`ui-helpers.test.js` (17 tests) a equivalentes React, instala React Testing Library, agrega tests de componentes críticos. Depende de #023-#031 (todos los dominios portados). (2026-08-12)
+- [ ] [S] [react][033] **QA manual end-to-end** — smoke test en navegador real de los 11 dominios contra `finances-api` real (dev), golden path + edge cases (regla CLAUDE.md de UI). Depende de #032. (2026-08-12)
+- [ ] [S] [react][034] **Cutover** — elimina `src/*.js` vanilla viejo, `package.json`/`vite.config.js`/`index.html` definitivos, actualiza `README.md`/`CLAUDE.md`/`.claude/*` (retrofit CFD con `skills_stack: react`, pendiente desde antes de esta migración) + `registry.json`. Merge `feature/react-migration` → `develop`. Depende de #033. (2026-08-12)
+
 - [ ] [S] [ops][011] **Definir mecanismo de deploy pa finances-frontend** — GitHub Pages descartado: usuario recibió notificación de GitHub sobre configuración de la org `Ledder-Dev` que lo bloquea (detalle exacto no confirmado en este mundo). Revertido: sitio Pages deshabilitado, workflow `.github/workflows/deploy-pages.yml` eliminado, `base` removido de `vite.config.js`. Repo en `Ledder-Dev/finances-frontend` sigue siendo el activo — solo falta decidir CÓMO desplegar. Ver `docs/adr/003-migracion-ledder-dev-github-pages.md` (actualización al final). (2026-08-04)
 
 ## doing
