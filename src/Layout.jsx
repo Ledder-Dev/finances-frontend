@@ -3,6 +3,8 @@ import { useAuth } from './AuthContext.jsx';
 import { useCurrentMonth } from './state/AppStateContext.jsx';
 import { apiFetch } from './api.js';
 import { TabNav, TAB_IDS } from './components/TabNav.jsx';
+import { PurchaseForm } from './products/PurchaseForm.jsx';
+import { ProductList } from './products/ProductList.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -47,7 +49,10 @@ export function Layout() {
       <TabNav activeTab={activeTab} onChange={setActiveTab} />
 
       {TAB_IDS.map((id) => (
-        <div key={id} id={`tab-${id}`} className={`tab-section${activeTab === id ? ' active' : ''}`} />
+        <div key={id} id={`tab-${id}`} className={`tab-section${activeTab === id ? ' active' : ''}`}>
+          {id === 'purchases' && <PurchaseForm />}
+          {id === 'products' && <ProductList active={activeTab === 'products'} />}
+        </div>
       ))}
     </div>
   );
