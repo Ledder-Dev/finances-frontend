@@ -12,7 +12,6 @@
 
 ## backlog
 
-- [ ] [S] [react][021] **UI helpers compartidos** — porta `src/ui-helpers.js` (`categoryInput`, `populateTypeSelect`, `typeInputHtml`, `unitOptions`, `findProduct`) a hooks/componentes reutilizables, consumidos por los dominios de abajo. Depende de #018. (2026-08-12)
 - [ ] [S] [react][022] **Layout base + navegación por tabs** — reemplaza estructura de `index.html` (tabs manuales) por `App`/`Layout`/`TabNav`, mismo `styles.css` sin rediseño. Depende de #019/#020. (2026-08-12)
 - [ ] [P] [react][023] **Dominio Products/Purchases** — porta la mitad de `src/core.js` (búsqueda/alta de producto, compras CRUD). Depende de #021/#022. (2026-08-12)
 - [ ] [P] [react][024] **Dominio Transactions** — porta el resto de `src/core.js` (transacciones CRUD, categorías). Depende de #021/#022. (2026-08-12)
@@ -34,6 +33,8 @@
 ## review
 
 ## done
+
+- [x] [S] [react][021] **UI helpers compartidos** — `src/components/`: `CategorySelect`, `UnitSelect`, `ProductTypeSelect` (controlados, reemplazan `categoryInput`/`unitOptions`/`populateTypeSelect`+`typeInputHtml` de `src/ui-helpers.js`). `ProductTypeSelect` absorbe también `onRLTypeChange`/`onRLCategoryChange` (antes funciones globales que tocaban el DOM directo): ahora es autocontenido, resuelve el sentinel `__new__` internamente y expone al padre un solo `value` string final (tipo existente o nuevo) — el re-filtrado de tipos al cambiar de categoría ya no necesita wiring manual, es reactivo vía prop `category`. `src/lib/findProduct.js`: función pura `findProduct(products, name)`, ya no importa `state.js` — recibe el array por parámetro. `src/ui-helpers.js` NO se toca, sigue vivo pa vanilla (`core.js`, `receipts.js`) hasta cutover (#034). Sin consumidores reales todavía (los dominios que los usan — Products/Purchases #023, Receipts #025 — no existen aún), por diseño según dependencia declarada en el backlog. `App.jsx` smoke-test monta los tres. Verificado: `npm run build` limpio, suite vanilla sin regresión. No se pudo probar render interactivo en browser (sin herramienta de browser en este entorno) — solo build + lógica revisada. (2026-08-12)
 
 - [x] [S] [react][020] **Estado global → Context/hooks** — `src/state/AppStateContext.jsx` nuevo: `AppStateProvider` + hooks por dominio (`useCurrentMonth`, `useProducts`, `useFamilyMembers`, `useTxCategories`, `usePlaidSyncData`, `useHeroStats`), reemplaza el objeto mutable `state` de `src/state.js` para el lado React (sin Redux, un solo context + `useState` por slice). `currentMonth` persiste a `localStorage` igual que vanilla. `src/state.js` NO se toca — sigue vivo pa vanilla (10 consumidores) hasta cutover (#034); sus constantes puras (`DEFAULT_PRODUCT_CATEGORIES`, `UNITS`, `txDefaultCategories`) son reusables tal cual desde React, no requieren context. Deliberadamente fuera: `isNewProduct`/`rlCounter`/`lastKnownUnitPrice`/`rlLastUnitPrice` (estado local de un form, no global — vive en el componente de #023) y `chartInstances` (refs imperativos de Chart.js — `useRef` local en #031, no context). `main.jsx` envuelve `<App/>` en `<AppStateProvider>` (dentro de `AuthProvider`). Verificado: `npm run build` limpio, suite vanilla sin regresión. (2026-08-12)
 
