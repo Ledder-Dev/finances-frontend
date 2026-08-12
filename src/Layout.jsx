@@ -6,12 +6,15 @@ import { TabNav, TAB_IDS } from './components/TabNav.jsx';
 import { PurchasesTab } from './products/PurchasesTab.jsx';
 import { ProductList } from './products/ProductList.jsx';
 import { TransactionsTab } from './transactions/TransactionsTab.jsx';
+import { FamilyTab } from './family-bank/FamilyTab.jsx';
+import { BankTab } from './family-bank/BankTab.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
   const [currentMonth, setCurrentMonth] = useCurrentMonth();
   const [months, setMonths] = useState([currentMonth]);
   const [activeTab, setActiveTab] = useState('purchases');
+  const [bankPendingCount, setBankPendingCount] = useState(0);
 
   useEffect(() => {
     apiFetch('/api/months')
@@ -21,6 +24,13 @@ export function Layout() {
         if (!list.includes(currentMonth)) list.unshift(currentMonth);
         setMonths(list);
       });
+  }, []);
+
+  useEffect(() => {
+    apiFetch('/api/teller/pending-count')
+      .then((res) => res.json())
+      .then(({ data }) => setBankPendingCount(data.count))
+      .catch(() => {});
   }, []);
 
   return (
@@ -47,13 +57,15 @@ export function Layout() {
         </select>
       </div>
 
-      <TabNav activeTab={activeTab} onChange={setActiveTab} />
+      <TabNav activeTab={activeTab} onChange={setActiveTab} bankPendingCount={bankPendingCount} />
 
       {TAB_IDS.map((id) => (
         <div key={id} id={`tab-${id}`} className={`tab-section${activeTab === id ? ' active' : ''}`}>
           {id === 'purchases' && <PurchasesTab />}
           {id === 'products' && <ProductList active={activeTab === 'products'} />}
           {id === 'transactions' && <TransactionsTab />}
+          {id === 'family' && <FamilyTab active={activeTab === 'family'} />}
+          {id === 'bank' && <BankTab active={activeTab === 'bank'} onPendingCountChange={setBankPendingCount} />}
         </div>
       ))}
     </div>

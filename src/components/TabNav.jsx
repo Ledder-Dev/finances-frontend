@@ -9,7 +9,7 @@ const TABS = [
   { id: 'bank', label: 'Bank Sync' },
 ];
 
-export function TabNav({ activeTab, onChange }) {
+export function TabNav({ activeTab, onChange, bankPendingCount = 0 }) {
   return (
     <div className="tabs">
       {TABS.map((tab) => (
@@ -19,7 +19,11 @@ export function TabNav({ activeTab, onChange }) {
           onClick={() => onChange(tab.id)}
         >
           {tab.label}
-          {tab.id === 'bank' && <span id="bankBadge" style={{ display: 'none' }} />}
+          {tab.id === 'bank' && bankPendingCount > 0 && (
+            <span style={{ display: 'inline', background: '#ef4444', color: '#fff', borderRadius: 10, padding: '1px 7px', fontSize: 11, marginLeft: 4 }}>
+              {bankPendingCount}
+            </span>
+          )}
         </button>
       ))}
     </div>
