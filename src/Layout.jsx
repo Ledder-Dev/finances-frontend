@@ -3,7 +3,7 @@ import { useAuth } from './AuthContext.jsx';
 import { useCurrentMonth } from './state/AppStateContext.jsx';
 import { apiFetch } from './api.js';
 import { TabNav, TAB_IDS } from './components/TabNav.jsx';
-import { PurchaseForm } from './products/PurchaseForm.jsx';
+import { PurchasesTab } from './products/PurchasesTab.jsx';
 import { ProductList } from './products/ProductList.jsx';
 import { TransactionsTab } from './transactions/TransactionsTab.jsx';
 
@@ -51,7 +51,7 @@ export function Layout() {
 
       {TAB_IDS.map((id) => (
         <div key={id} id={`tab-${id}`} className={`tab-section${activeTab === id ? ' active' : ''}`}>
-          {id === 'purchases' && <PurchaseForm />}
+          {id === 'purchases' && <PurchasesTab />}
           {id === 'products' && <ProductList active={activeTab === 'products'} />}
           {id === 'transactions' && <TransactionsTab />}
         </div>
