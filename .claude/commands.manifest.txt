@@ -1,0 +1,52 @@
+# Subset de comandos de _shared/commands/ curado para este mundo.
+# Un nombre por linea (sin .md), '#' para comentarios.
+# Regenerar symlinks: pwsh $AI_OS_ROOT/_shared/scripts/link-world-commands.ps1 -World <mundo>
+#
+# Catalogo completo (comentados = disponibles, descomenta el que necesites).
+# Activos por defecto: session-start, session-end.
+
+# --- Sesión (activos por defecto) ---
+session-start
+session-end
+
+# --- Tareas / contexto ---
+# tasks
+# learn
+# standup
+# sync-context
+# cross-search
+# cowork-brief
+# design-handoff
+
+# --- Testing / auditoría ---
+# test
+# e2e-test
+# visual-test
+# site-check
+# web-check
+# audit-clients
+# audit-umami
+# sonar-audit
+# semgrep-scan
+
+# --- Deploy / infra ---
+# track-deploy
+# sync-mcp
+# sync-world-actions
+# token-report
+
+# --- Contratos de API ---
+# link-contract
+
+# --- Creación de mundos (normalmente se corren desde la raíz del universo,
+#     no dentro de un mundo ya existente — inclúyelos solo si este mundo
+#     orquesta creación de otros, ej. un mundo "meta") ---
+# new-world
+# new-world-supabase
+# new-world-react
+# new-world-astro
+# new-world-fastapi
+# new-world-node-api
+# new-world-shipfree
+# new-world-vanilla
+# new-world-import

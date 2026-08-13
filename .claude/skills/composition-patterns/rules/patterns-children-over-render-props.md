@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/composition-patterns/rules/patterns-children-over-render-props.md

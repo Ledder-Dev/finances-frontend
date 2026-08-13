@@ -2,37 +2,35 @@
 
 > Detalle referenciado desde `CLAUDE.md`. Fuente de verdad de tareas: `TASKS.md`.
 
-## Migración React (ADR 005)
+## Migración React (ADR 005) — completada
 
-Branch `feature/react-migration`, coexiste con vanilla (`index.html`) via multi-page Vite
-(`react-app.html`). Cutover único al final (task 034), sin reescritura de diseño
+Migración vanilla JS → React 19 terminada (task 034, cutover). `src/*.js` sueltos
+viejos eliminados, `index.html` es el único entry point (ya no hay `react-app.html`
+multi-page), `vite.config.js` de vuelta a config simple. Sin reescritura de diseño
 (mismo `public/styles.css`), Context API + hooks (sin Redux), sin router.
 
-**Dominios portados (018-028, done):** scaffold, auth context, state global,
+**Dominios portados (018-032, done):** scaffold, auth context, state global,
 UI helpers compartidos, layout + tabs, Products/Purchases, Transactions,
-Receipts, Recurring/Fixed items, Family Bank (Plaid), Savings.
+Receipts, Recurring/Fixed items, Family Bank (Plaid), Savings, Debts,
+Settings, Dashboard Analysis + Hero, Tests.
 
-**Pendiente (backlog):**
-- 029 — Debts (`src/debts.js` + card "Add debt" del `tab-savings`)
-- 030 — Settings (modal, background image)
-- 031 — Dashboard Analysis + Hero (decidir `react-chartjs-2` vs ref imperativo)
-- 032 — Tests (porta 17 tests vanilla + React Testing Library)
-- 033 — QA manual end-to-end (11 dominios, navegador real)
-- 034 — Cutover (elimina vanilla, merge a `develop`)
+**033 (QA manual end-to-end) saltada deliberadamente** — decisión del usuario,
+riesgo aceptado, cutover (034) procedió sin ese paso. Sin herramienta de browser
+en este entorno — ningún dominio probado con render real todavía; primer smoke
+test en navegador real queda pendiente para cuando el usuario lo corra.
 
 Cada task done en `TASKS.md` documenta gaps cross-dominio dejados a propósito
-(YAGNI) — ej. `BankTab` no dispara `loadSavings()` tras sync manual,
-`heroStats` tiene slots sin consumidor hasta 031. Revisar la entrada de cada
-task en `TASKS.md` para el detalle completo antes de retomar un dominio.
+(YAGNI) — ej. `BankTab` no dispara `loadSavings()` tras sync manual. Revisar
+la entrada de cada task en `TASKS.md` para el detalle completo.
 
-**Verificación en cada task:** `npm run build` + `npm test -- --run` limpios
-(2 fallos preexistentes en `api.test.js` por mismatch de puerto en
-`.env.local`, no relacionados). Sin herramienta de browser en este entorno —
-ningún dominio React probado con render real todavía. QA manual (033) cubre eso.
+**Merge a `develop`/`master` explícitamente NO hecho** — instrucción del usuario,
+`feature/react-migration` sigue siendo la branch activa.
+
+**Verificación en cutover:** `npm run build` + `npm test -- --run`.
 
 ## Fuera de la migración React (histórico, ver `TASKS.md` sección done)
 
-- Ops: repo migrado a `Ledder-Dev/finances-frontend`, deploy pendiente de definir (#011).
+- Ops: repo en `Ledder-Dev/finances-frontend`, deploy vía Cloudflare Pages (ver `README.md`), cierra #011.
 - Auth: sesión por cookie (Better-Auth), ver `docs/adr/004-auth-cookie-session.md`.
 - Backend: `finances-api` puerto 3001/3002 según entorno, contrato compartido en
   `_shared/contracts/finances/api-contract.yaml`.

@@ -1,0 +1,1 @@
+../../../../../_shared/skills/supabase/supabase/SKILL.md

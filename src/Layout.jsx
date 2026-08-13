@@ -11,6 +11,9 @@ import { BankTab } from './family-bank/BankTab.jsx';
 import { SavingsTab } from './savings/SavingsTab.jsx';
 import { DebtsTab } from './debts/DebtsTab.jsx';
 import { SettingsModal } from './components/SettingsModal.jsx';
+import { HeroBanner } from './dashboard/HeroBanner.jsx';
+import { SummaryGrid } from './dashboard/SummaryGrid.jsx';
+import { AnalysisTab } from './analysis/AnalysisTab.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -52,6 +55,8 @@ export function Layout() {
         </div>
       </div>
 
+      <HeroBanner />
+
       <div className="month-bar">
         <label style={{ fontSize: 13, color: '#666' }}>Month</label>
         <select value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)}>
@@ -60,6 +65,8 @@ export function Layout() {
           ))}
         </select>
       </div>
+
+      <SummaryGrid />
 
       <TabNav activeTab={activeTab} onChange={setActiveTab} bankPendingCount={bankPendingCount} />
 
@@ -70,6 +77,7 @@ export function Layout() {
           {id === 'transactions' && <TransactionsTab />}
           {id === 'savings' && <><SavingsTab active={activeTab === 'savings'} /><DebtsTab active={activeTab === 'savings'} /></>}
           {id === 'family' && <FamilyTab active={activeTab === 'family'} />}
+          {id === 'analysis' && <AnalysisTab active={activeTab === 'analysis'} />}
           {id === 'bank' && <BankTab active={activeTab === 'bank'} onPendingCountChange={setBankPendingCount} />}
         </div>
       ))}

@@ -76,6 +76,7 @@ iniciar_claude_code.ps1
 iniciar_opencode.ps1
 TASKS.md
 AGENTS.md
+COWORK.md
 install-mcps.ps1
 install-mcps.sh
 opencode.ps1
@@ -83,3 +84,8 @@ opencode.json
 # Archivos temporales
 *.tmp
 *.temp
+# Claude config (lazy loading)
+.claude/CONVENTIONS.md
+.claude/ARCHITECTURE.md
+.claude/agents.manifest.txt
+.claude/commands.manifest.txt

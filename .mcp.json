@@ -1,0 +1,39 @@
+{
+    "mcpServers": {
+        "semgrep": {
+            "type": "streamable-http",
+            "url": "https://mcp.semgrep.ai/mcp"
+        },
+        "glitchtip": {
+            "type": "http",
+            "url": "https://glitchtip.ladderdev.com/mcp"
+        },
+        "umami": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y", "@mikusnuz/umami-mcp"],
+            "env": {
+                "UMAMI_URL": "${UMAMI_URL}",
+                "UMAMI_USERNAME": "${UMAMI_USERNAME}",
+                "UMAMI_PASSWORD": "${UMAMI_PASSWORD}"
+            }
+        },
+        "pagespeed": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y", "mcp-server-pagespeed"],
+            "env": {
+                "PAGESPEED_API_KEY": "${PAGESPEED_API_KEY}"
+            }
+        },
+        "playwright-edge": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y", "@playwright/mcp@latest", "--browser", "msedge"]
+        },
+        "chrome-devtools": {
+            "command": "npx",
+            "args": ["-y", "chrome-devtools-mcp@latest"]
+        }
+    }
+}

@@ -1,0 +1,1 @@
+../../../../../_shared/skills/react/react-view-transitions/AGENTS.md

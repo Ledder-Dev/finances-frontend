@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/core-web-vitals/references/LCP.md

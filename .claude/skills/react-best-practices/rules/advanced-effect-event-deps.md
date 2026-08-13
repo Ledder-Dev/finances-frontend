@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/react-best-practices/rules/advanced-effect-event-deps.md

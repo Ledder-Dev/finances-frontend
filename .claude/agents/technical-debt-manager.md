@@ -1,0 +1,1 @@
+../../../../_shared/agents/core/technical-debt-manager.md

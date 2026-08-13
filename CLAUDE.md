@@ -4,19 +4,20 @@
 @$AI_OS_ROOT/_shared/contracts/finances/api-contract.yaml
 
 ## Contexto específico
-Frontend single-page (vanilla JS + Vite), tracker finanzas personales/familiares. Consume `finances-backend` (puerto 3001): login/signup JWT, compras/recibos OCR, ingresos/gastos, ahorros, deudas, remesas familiares, sync bancario vía Plaid. Repo: https://github.com/Ledder-Dev/finances-frontend (repo viejo `camachoeng/finances-frontend` queda como remote secundario `camachoeng`, sin actividad)
+Frontend single-page (React 19 + Vite), tracker finanzas personales/familiares. Consume `finances-api` (puerto 3001): login/signup, compras/recibos OCR, ingresos/gastos, ahorros, deudas, remesas familiares, sync bancario vía Plaid. Repo: https://github.com/Ledder-Dev/finances-frontend (repo viejo `camachoeng/finances-frontend` queda como remote secundario `camachoeng`, sin actividad)
 
 ## Stack
-- Vanilla JS (ES6+) + HTML + CSS, sin framework UI
-- Vite 6 — solo dev server + build, sin bundler componentes
+- React 19 + Vite 6 (dev server + build)
+- Vitest + Testing Library — tests unitarios/componentes
 - Chart.js (CDN): gráficas tendencia mensual
 - Plaid Link (CDN): conexión bancaria
-- Auth: token JWT en `localStorage`, `fetch` global interceptado, inyecta `Authorization: Bearer`, maneja 401
+- Auth: cookie de sesión (`credentials: 'include'`), `apiFetch` centralizado en `src/api.js`, maneja 401
 
 ## Estado actual
-Importado universo, retrofit CFD. Código funcional (single file
-`public/app.js`, ~2080 líneas, sin módulos). Ver `docs/adr/001-import-baseline.md`
-y `.claude/CURRENT_STATUS.md` pa detalle.
+Migración vanilla JS → React 19 completada (cutover, task 034). Todo `src/`
+es React por dominio (`src/<dominio>/*.jsx`), sin código vanilla remanente.
+Deploy vía Cloudflare Pages, ver `README.md`. Ver `.claude/ARCHITECTURE.md`
+y `TASKS.md` pa detalle por dominio.
 
 ## graphify
 

@@ -1,9 +1,52 @@
-node_modules/
-dist/
-.env
-.env.local
-.env.*.local
-.mcp.json
-graphify-out/
-/.idea/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+/.env
+
+# Auto-generated files
+public/sitemap.xml
 /.qodo/
+
+# Claude settings
+.claude/settings.local.json
+/supabase/.temp/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
+
+# Playwright
+/playwright-report/
+/test-results/
+/e2e/.auth/
+
+# Graphify
+# cache/ optional: commit for speed, skip to keep repo small
+/graphify-out/cache/
+# cost.json, .graphify_python, .graphify_root: local machine only
+/graphify-out/**/cost.json
+/graphify-out/.graphify_python
+/graphify-out/.graphify_root

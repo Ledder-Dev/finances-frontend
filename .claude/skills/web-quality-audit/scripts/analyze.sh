@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/web-quality-audit/scripts/analyze.sh

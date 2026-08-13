@@ -18,6 +18,9 @@ export function AppStateProvider({ children }) {
     avgExpenses12: 0,
     payableTotal: 0,
     receivableTotal: 0,
+    historicNet: 0,
+    historicMonths: 0,
+    expensePct: 0,
   });
 
   const setCurrentMonth = (month) => {

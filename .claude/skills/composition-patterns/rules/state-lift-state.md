@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/composition-patterns/rules/state-lift-state.md

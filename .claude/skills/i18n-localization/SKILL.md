@@ -1,0 +1,1 @@
+../../../../../_shared/skills/react/i18n-localization/SKILL.md

@@ -1,0 +1,1 @@
+../../../../_shared/hooks/force-push-blocker.py
