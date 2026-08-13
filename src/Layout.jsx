@@ -9,6 +9,8 @@ import { TransactionsTab } from './transactions/TransactionsTab.jsx';
 import { FamilyTab } from './family-bank/FamilyTab.jsx';
 import { BankTab } from './family-bank/BankTab.jsx';
 import { SavingsTab } from './savings/SavingsTab.jsx';
+import { DebtsTab } from './debts/DebtsTab.jsx';
+import { SettingsModal } from './components/SettingsModal.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -16,6 +18,7 @@ export function Layout() {
   const [months, setMonths] = useState([currentMonth]);
   const [activeTab, setActiveTab] = useState('purchases');
   const [bankPendingCount, setBankPendingCount] = useState(0);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     apiFetch('/api/months')
@@ -44,7 +47,7 @@ export function Layout() {
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             <button className="settings-btn" onClick={logout} title="Log out">⎋</button>
-            <button className="settings-btn" title="Personalize">⚙</button>
+            <button className="settings-btn" title="Personalize" onClick={() => setSettingsOpen(true)}>⚙</button>
           </div>
         </div>
       </div>
@@ -65,11 +68,13 @@ export function Layout() {
           {id === 'purchases' && <PurchasesTab />}
           {id === 'products' && <ProductList active={activeTab === 'products'} />}
           {id === 'transactions' && <TransactionsTab />}
-          {id === 'savings' && <SavingsTab active={activeTab === 'savings'} />}
+          {id === 'savings' && <><SavingsTab active={activeTab === 'savings'} /><DebtsTab active={activeTab === 'savings'} /></>}
           {id === 'family' && <FamilyTab active={activeTab === 'family'} />}
           {id === 'bank' && <BankTab active={activeTab === 'bank'} onPendingCountChange={setBankPendingCount} />}
         </div>
       ))}
+
+      <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>
   );
 }
