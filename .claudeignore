@@ -41,13 +41,6 @@ pnpm-debug.log*
 .idea/
 .qodo/
 *.swp
-*.swo
-*~
-*.iml
-
-# OS
-.DS_Store
-Thumbs.db
 
 # Cache
 .cache/
@@ -55,9 +48,6 @@ Thumbs.db
 .turbo/
 .eslintcache
 
-# Supabase temporales
-supabase/.branches/
-supabase/.temp/
 
 # Assets pesados (descomenta si aplica)
 # public/videos/
@@ -65,21 +55,15 @@ supabase/.temp/
 # *.mov
 
 # Docs generadas
-docs/api/
-doc/
+docs/
 
 #Folders
-worlds/*
-_shared/*
 README.md
 iniciar_claude_code.ps1
 iniciar_opencode.ps1
 TASKS.md
 AGENTS.md
 COWORK.md
-install-mcps.ps1
-install-mcps.sh
-opencode.ps1
 opencode.json
 # Archivos temporales
 *.tmp

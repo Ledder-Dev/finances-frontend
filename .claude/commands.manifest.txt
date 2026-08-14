@@ -8,7 +8,8 @@
 # --- Sesión (activos por defecto) ---
 session-start
 session-end
-
+commit-push-pr
+commit
 # --- Tareas / contexto ---
 # tasks
 # learn

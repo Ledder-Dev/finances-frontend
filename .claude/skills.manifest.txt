@@ -1,0 +1,24 @@
+﻿# Subset de skills de _shared/skills/ curado para este mundo.
+# Un nombre por linea (sin categoria), '#' para comentarios.
+# Regenerar symlinks: pwsh ../../_shared/scripts/link-world-skills.ps1 -World finances-frontend
+accessibility
+coding-standards
+composition-patterns
+core-web-vitals
+i18n-localization
+react-best-practices
+react-patterns
+react-useeffect
+react-view-transitions
+security-audit
+security-best-practices
+supabase
+supabase-postgres-best-practices
+tailwind-design-system
+typescript-expert
+umami
+web-design-guidelines
+web-quality-audit
+writing-guidelines
+zod-validation-expert
+zustand-store-ts
