@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/react-best-practices/rules/js-hoist-regexp.md

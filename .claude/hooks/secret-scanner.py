@@ -1,0 +1,1 @@
+../../../../_shared/hooks/secret-scanner.py

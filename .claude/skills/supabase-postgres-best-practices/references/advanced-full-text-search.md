@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/supabase/supabase-postgres-best-practices/references/advanced-full-text-search.md

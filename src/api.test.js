@@ -33,20 +33,12 @@ describe('apiFetch', () => {
     vi.unstubAllGlobals();
   });
 
-  it('injects the Authorization header when a token is stored', async () => {
-    localStorage.setItem('authToken', 'abc123');
+  it('sends credentials so the session cookie travels with the request', async () => {
     const { apiFetch } = await import('./api.js');
     await apiFetch('/api/purchases');
     const [url, options] = fetchMock.mock.calls[0];
     expect(url).toBe('http://localhost:3001/api/purchases');
-    expect(options.headers['Authorization']).toBe('Bearer abc123');
-  });
-
-  it('omits the Authorization header when there is no token', async () => {
-    const { apiFetch } = await import('./api.js');
-    await apiFetch('/api/purchases');
-    const [, options] = fetchMock.mock.calls[0];
-    expect(options.headers['Authorization']).toBeUndefined();
+    expect(options.credentials).toBe('include');
   });
 
   it('leaves non-/api/ URLs untouched', async () => {

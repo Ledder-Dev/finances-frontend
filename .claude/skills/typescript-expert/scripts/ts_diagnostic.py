@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/typescript-expert/scripts/ts_diagnostic.py

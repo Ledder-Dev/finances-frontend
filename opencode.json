@@ -11,39 +11,19 @@
     },
     "umami": {
       "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@mikusnuz/umami-mcp"
-      ],
+      "command": ["npx", "-y", "@mikusnuz/umami-mcp"],
       "environment": {
-        "UMAMI_URL": "https://analytics.ladderdev.com",
-        "UMAMI_USERNAME": "amedesarrollo@gmail.com",
-        "UMAMI_PASSWORD": "JVBzkSjQ"
+        "UMAMI_URL": "${UMAMI_URL}",
+        "UMAMI_USERNAME": "${UMAMI_USERNAME}",
+        "UMAMI_PASSWORD": "${UMAMI_PASSWORD}"
       }
     },
     "pagespeed": {
       "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "mcp-server-pagespeed"
-      ],
+      "command": ["npx", "-y", "mcp-server-pagespeed"],
       "environment": {
-        "PAGESPEED_API_KEY": "AIzaSyDmW_mll3KFebEfw5tmNAsARcvtax_qvAg"
+        "PAGESPEED_API_KEY": "${PAGESPEED_API_KEY}"
       }
-    },
-    "playwright-brave": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@playwright/mcp@latest",
-        "--browser",
-        "chromium",
-        "--launch-options",
-        "{\"executablePath\":\"C:\\\\Program Files\\\\BraveSoftware\\\\Brave-Browser\\\\Application\\\\brave.exe\",\"headless\":false}"
-      ]
     },
     "playwright-edge": {
       "type": "local",

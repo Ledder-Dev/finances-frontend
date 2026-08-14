@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/react-best-practices/rules/rerender-split-combined-hooks.md

@@ -1,0 +1,64 @@
+{
+    "$schema":  "https://json.schemastore.org/claude-code-settings.json",
+    "hooks":  {
+                  "PreToolUse":  [
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/current-status-linecount.py"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scanner.py"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/force-push-blocker.py\""
+                                                       }
+                                                   ]
+                                     }
+                                 ],
+                  "Stop":  [
+                               {
+                                   "hooks":  [
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude has finished working\" with title \"Claude Code\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send \u0027Claude Code\u0027 \"Claude has finished working\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude has finished working\" -Title \"Claude Code\"; fi"
+                                                 }
+                                             ]
+                               }
+                           ],
+                  "Notification":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude needs your input\" with title \"Claude Code\" sound name \"Ping\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send -u critical \u0027Claude Code\u0027 \"Claude needs your input\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude needs your input\" -Title \"Claude Code\"; fi"
+                                                         }
+                                                     ]
+                                       }
+                                   ],
+                  "UserPromptSubmit":  [
+                                           {
+                                               "hooks":  [
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "if command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -ClearLock; fi"
+                                                             }
+                                                         ]
+                                           }
+                                       ]
+              }
+}

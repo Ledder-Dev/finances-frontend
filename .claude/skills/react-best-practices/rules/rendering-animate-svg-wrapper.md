@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/react-best-practices/rules/rendering-animate-svg-wrapper.md

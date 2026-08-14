@@ -1,0 +1,1 @@
+../../../../../../_shared/skills/react/composition-patterns/rules/architecture-avoid-boolean-props.md

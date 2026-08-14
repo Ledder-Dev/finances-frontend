@@ -1,0 +1,24 @@
+# Subset de agentes de _shared/agents/ curado para este mundo.
+# Un nombre por linea (sin .md), "#" para comentarios.
+# Regenerar symlinks: pwsh $AI_OS_ROOT/_shared/scripts/link-world-agents.ps1 -World finances-frontend
+changelog-generator
+code-reviewer
+context-manager
+debugger
+diagram-architect
+documentation-engineer
+expert-react-frontend-engineer
+frontend-developer
+fullstack-developer
+git-flow-manager
+git-workflow-manager
+performance-profiler
+planner
+qa-expert
+react-performance-optimization
+react-specialist
+refactoring-specialist
+seo-analyzer
+technical-debt-manager
+technical-writer
+ui-designer
