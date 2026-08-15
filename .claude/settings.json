@@ -56,7 +56,6 @@
       "Read(./**/.env)",
       "Read(~/.ssh/**)",
       "Read(./node_modules/**)",
-      "Read(./dist/**)",
       "Read(./**/*.log)"
     ],
     "defaultMode": "acceptEdits"
