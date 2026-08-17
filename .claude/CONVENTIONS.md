@@ -1,6 +1,6 @@
 # Convenciones — finances-frontend
 
-@$AI_OS_ROOT/_shared/CONVENTIONS.md
+@../../../_shared/CONVENTIONS.md
 
 ## 1. Fetch
 Nunca `fetch` directo a `/api/*` en un componente. Usar `apiFetch` de `src/api.js`
