@@ -1,6 +1,6 @@
 # Mundo: finances-frontend
 
-@$AI_OS_ROOT/CLAUDE.md
+@../../CLAUDE.md
 @$AI_OS_ROOT/_shared/contracts/finances/api-contract.yaml
 
 ## Contexto específico
