@@ -43,6 +43,8 @@
       "mcp__ai-os-orchestrator__get_world_context",
       "mcp__ai-os-orchestrator__get_cowork_brief",
       "mcp__ai-os-orchestrator__search_decisions",
+      "mcp__time-tracker__start_task",
+      "mcp__time-tracker__end_task",
       "Skill(run)"
     ],
     "deny": [
@@ -66,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cat .claude/CONVENTIONS.md 2>/dev/null || true"
+            "command": "cat .claude/CONVENTIONS.md 2\u003e/dev/null || true"
           }
         ]
       },
@@ -83,7 +85,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$AI_OS_ROOT/_shared/scripts/check-contract-drift.sh\" 2>/dev/null || true"
+            "command": "bash \"$AI_OS_ROOT/_shared/scripts/check-contract-drift.sh\" 2\u003e/dev/null || true"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/ensure-tunnel.sh"
           }
         ]
       }
@@ -140,7 +150,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if command -v osascript >/dev/null 2>&1; then osascript -e 'display notification \"Claude has finished working\" with title \"Claude Code\"'; elif command -v notify-send >/dev/null 2>&1; then notify-send 'Claude Code' \"Claude has finished working\"; elif command -v powershell.exe >/dev/null 2>&1; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude has finished working\" -Title \"Claude Code\"; fi"
+            "command": "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude has finished working\" with title \"Claude Code\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send \u0027Claude Code\u0027 \"Claude has finished working\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude has finished working\" -Title \"Claude Code\"; fi"
           }
         ]
       }
@@ -150,7 +160,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if command -v osascript >/dev/null 2>&1; then osascript -e 'display notification \"Claude needs your input\" with title \"Claude Code\" sound name \"Ping\"'; elif command -v notify-send >/dev/null 2>&1; then notify-send -u critical 'Claude Code' \"Claude needs your input\"; elif command -v powershell.exe >/dev/null 2>&1; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude needs your input\" -Title \"Claude Code\"; fi"
+            "command": "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude needs your input\" with title \"Claude Code\" sound name \"Ping\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send -u critical \u0027Claude Code\u0027 \"Claude needs your input\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude needs your input\" -Title \"Claude Code\"; fi"
           }
         ]
       }
@@ -160,7 +170,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if command -v powershell.exe >/dev/null 2>&1; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -ClearLock; fi"
+            "command": "if command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -ClearLock; fi"
           }
         ]
       }
