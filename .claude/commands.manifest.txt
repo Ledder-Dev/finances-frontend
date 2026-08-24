@@ -51,3 +51,7 @@ commit
 # new-world-shipfree
 # new-world-vanilla
 # new-world-import
+
+# --- Tareas / tracking ---
+task-start
+task-end
