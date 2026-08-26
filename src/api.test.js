@@ -7,6 +7,7 @@ describe('API_BASE resolution', () => {
   });
 
   it('falls back to the localhost heuristic when VITE_API_BASE_URL is unset', async () => {
+    vi.stubEnv('VITE_API_PORT', '3001');
     const { API_BASE } = await import('./api.js');
     expect(API_BASE).toBe('http://localhost:3001');
   });
@@ -34,6 +35,7 @@ describe('apiFetch', () => {
   });
 
   it('sends credentials so the session cookie travels with the request', async () => {
+    vi.stubEnv('VITE_API_PORT', '3001');
     const { apiFetch } = await import('./api.js');
     await apiFetch('/api/purchases');
     const [url, options] = fetchMock.mock.calls[0];

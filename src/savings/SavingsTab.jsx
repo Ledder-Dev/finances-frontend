@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../api.js';
-import { useCurrentMonth, useHeroStats } from '../state/AppStateContext.jsx';
+import { useCurrentMonth } from '../state/AppStateContext.jsx';
 import { SavingsRow } from './SavingsRow.jsx';
 
 export function SavingsTab({ active }) {
   const [currentMonth] = useCurrentMonth();
-  const [, setHeroStats] = useHeroStats();
   const [accounts, setAccounts] = useState([]);
   const [tellerAccounts, setTellerAccounts] = useState([]);
   const [name, setName] = useState('');
@@ -17,9 +16,6 @@ export function SavingsTab({ active }) {
     ]);
     setAccounts(savingsRes.data);
     setTellerAccounts(tellerRes.data || []);
-    const hasBalance = savingsRes.data.some((a) => a.balance !== null);
-    const totalBalance = hasBalance ? savingsRes.data.reduce((sum, a) => sum + (a.balance || 0), 0) : 0;
-    setHeroStats((s) => ({ ...s, savingsTotal: totalBalance }));
   };
 
   useEffect(() => { if (active) load(); }, [active, currentMonth]);

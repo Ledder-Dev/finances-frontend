@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { apiFetch } from '../api.js';
+import { trimmedMean } from '../analysis.js';
 
 const AppStateContext = createContext(null);
 
@@ -27,6 +29,42 @@ export function AppStateProvider({ children }) {
     localStorage.setItem('currentMonth', month);
     setCurrentMonthRaw(month);
   };
+
+  useEffect(() => {
+    const loadHeroStats = async () => {
+      const [analysisRes, savingsRes, debtsRes] = await Promise.all([
+        apiFetch('/api/analysis').then((r) => r.json()),
+        apiFetch(`/api/savings?month=${currentMonth}`).then((r) => r.json()),
+        apiFetch('/api/debts').then((r) => r.json()),
+      ]);
+
+      const upToSelected = analysisRes.data.months.filter((m) => m.month <= currentMonth && m.month !== currentMonth);
+      const last12 = upToSelected.slice(0, 12);
+      const allPast = upToSelected;
+
+      const historicNet = allPast.reduce((s, m) => s + (m.income - m.expenses), 0);
+      const totalIncome = last12.reduce((s, m) => s + m.income, 0);
+      const totalExp = last12.reduce((s, m) => s + m.expenses, 0);
+      const expensePct = totalIncome > 0 ? (totalExp / totalIncome) * 100 : 0;
+      const avgExpenses12 = last12.length >= 2 ? trimmedMean(last12.map((m) => m.expenses)) : 0;
+
+      const hasBalance = savingsRes.data.some((a) => a.balance !== null);
+      const savingsTotal = hasBalance ? savingsRes.data.reduce((sum, a) => sum + (a.balance || 0), 0) : 0;
+
+      const openTotal = (t) => debtsRes.data.filter((d) => d.type === t && !d.settled).reduce((s, d) => s + parseFloat(d.amount), 0);
+
+      setHeroStats({
+        savingsTotal,
+        avgExpenses12,
+        payableTotal: openTotal('payable'),
+        receivableTotal: openTotal('receivable'),
+        historicNet,
+        historicMonths: allPast.length,
+        expensePct,
+      });
+    };
+    loadHeroStats();
+  }, [currentMonth]);
 
   const value = {
     currentMonth, setCurrentMonth,

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { apiFetch } from '../api.js';
 import { trimmedMean } from '../analysis.js';
-import { useCurrentMonth, useHeroStats } from '../state/AppStateContext.jsx';
+import { useCurrentMonth } from '../state/AppStateContext.jsx';
 
 const CHART_SPECS = [
   { id: 'chartIncome', key: 'income', bg: 'rgba(39,80,10,0.55)', border: '#27500a' },
@@ -23,7 +23,6 @@ const baseOpts = {
 
 export function AnalysisTab({ active }) {
   const [currentMonth] = useCurrentMonth();
-  const [, setHeroStats] = useHeroStats();
   const [months, setMonths] = useState([]);
   const [categories, setCategories] = useState([]);
   const [editingMonth, setEditingMonth] = useState(null);
@@ -40,18 +39,6 @@ export function AnalysisTab({ active }) {
     setMonths(data.months);
     setCategories(data.categories);
     setEditingMonth(null);
-
-    const upToSelected = data.months.filter((m) => m.month <= currentMonth && m.month !== currentMonth);
-    const last12 = upToSelected.slice(0, 12);
-    const allPast = upToSelected;
-
-    const historicNet = allPast.reduce((s, m) => s + (m.income - m.expenses), 0);
-    const totalIncome = last12.reduce((s, m) => s + m.income, 0);
-    const totalExp = last12.reduce((s, m) => s + m.expenses, 0);
-    const expensePct = totalIncome > 0 ? (totalExp / totalIncome) * 100 : 0;
-    const avgExpenses12 = last12.length >= 2 ? trimmedMean(last12.map((m) => m.expenses)) : 0;
-
-    setHeroStats((s) => ({ ...s, historicNet, historicMonths: allPast.length, expensePct, avgExpenses12 }));
   };
 
   useEffect(() => { if (active) load(); }, [active, currentMonth]);
