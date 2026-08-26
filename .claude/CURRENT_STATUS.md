@@ -23,8 +23,8 @@ Cada task done en `TASKS.md` documenta gaps cross-dominio dejados a propósito
 (YAGNI) — ej. `BankTab` no dispara `loadSavings()` tras sync manual. Revisar
 la entrada de cada task en `TASKS.md` para el detalle completo.
 
-**Merge a `develop`/`master` explícitamente NO hecho** — instrucción del usuario,
-`feature/react-migration` sigue siendo la branch activa.
+**Merge a `develop`/`master` explícitamente NO hecho** — instrucción del usuario.
+Rama de trabajo activa: `devRandy` (renombrada de `development`, local + remoto).
 
 **Verificación en cutover:** `npm run build` + `npm test -- --run`.
 

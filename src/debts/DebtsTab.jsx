@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../api.js';
-import { useHeroStats } from '../state/AppStateContext.jsx';
-
 export function DebtsTab({ active }) {
-  const [, setHeroStats] = useHeroStats();
   const [debts, setDebts] = useState([]);
   const [type, setType] = useState('receivable');
   const [person, setPerson] = useState('');
@@ -13,8 +10,6 @@ export function DebtsTab({ active }) {
   const load = async () => {
     const { data } = await apiFetch('/api/debts').then((r) => r.json());
     setDebts(data);
-    const openTotal = (t) => data.filter((d) => d.type === t && !d.settled).reduce((s, d) => s + parseFloat(d.amount), 0);
-    setHeroStats((s) => ({ ...s, receivableTotal: openTotal('receivable'), payableTotal: openTotal('payable') }));
   };
 
   useEffect(() => { if (active) load(); }, [active]);

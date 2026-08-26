@@ -13,6 +13,8 @@ const openDebt = { id: 1, type: 'payable', person: 'John', description: '', amou
 function renderTab(debts = [openDebt]) {
   apiFetch.mockImplementation((url, options = {}) => {
     if (url === '/api/debts' && !options.method) return jsonRes(debts);
+    if (url === '/api/analysis') return jsonRes({ months: [], categories: [] });
+    if (url.startsWith('/api/savings')) return jsonRes([]);
     return jsonRes(debts);
   });
   return render(<AppStateProvider><DebtsTab active /></AppStateProvider>);
