@@ -37,7 +37,7 @@ export function ProductTypeSelect({ id, products, category, value = '', onChange
           type="text"
           placeholder="New product type"
           value={value}
-          onChange={(e) => onChange(e.target.value.trim())}
+          onChange={(e) => onChange(e.target.value)}
           style={{ display: 'block', marginTop: 6, width: '100%', padding: '8px 10px', border: '1px solid rgba(0,0,0,0.12)', borderRadius: 8, fontSize: 14 }}
         />
       )}

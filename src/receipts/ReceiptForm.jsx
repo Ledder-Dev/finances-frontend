@@ -71,7 +71,7 @@ export function ReceiptForm({ scanInputRef, setScanning, onSaved }) {
         const res = await apiFetch('/api/products', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: productSearch, category: line.category.trim() || 'Miscellaneous', product_type: line.type, unit: line.unit }),
+          body: JSON.stringify({ name: productSearch, category: line.category.trim() || 'Miscellaneous', product_type: line.type.trim(), unit: line.unit }),
         });
         const json = await res.json();
         if (!json.success) { alert(`Could not create product "${productSearch}": ${json.error}`); return; }
