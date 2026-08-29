@@ -16,7 +16,7 @@
 
 ## review
 
-- [ ] [S] [ops][019] **PR #3 pendiente review compañero** — `fix/resolve-tasks-conflict` → `develop`, restaura entrada task #018 (pm2 local) perdida en conflicto stash vs main. https://github.com/Ledder-Dev/finances-frontend/pull/3 (2026-08-18)
+- [ ] [S] [ops][019] **PR #3 pendiente review compañero** — restaura entrada task #018 (pm2 local) perdida en conflicto stash vs main. https://github.com/Ledder-Dev/finances-frontend/pull/3 (2026-08-18)
 
 ## done
 
