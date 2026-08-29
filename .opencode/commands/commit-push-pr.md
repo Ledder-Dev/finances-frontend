@@ -1,0 +1,1 @@
+../../../../_shared/commands/commit-push-pr.md

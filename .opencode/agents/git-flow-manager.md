@@ -1,0 +1,1 @@
+../../../../_shared/agents/git/git-flow-manager.md

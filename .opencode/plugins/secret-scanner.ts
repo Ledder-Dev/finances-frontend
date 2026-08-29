@@ -1,0 +1,1 @@
+../../../../_shared/plugins/secret-scanner.ts

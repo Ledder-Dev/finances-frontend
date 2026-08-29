@@ -1,0 +1,1 @@
+../../../../_shared/agents/react/fullstack-developer.md
