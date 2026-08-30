@@ -55,3 +55,4 @@ commit
 # --- Tareas / tracking ---
 task-start
 task-end
+search-docs

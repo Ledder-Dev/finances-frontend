@@ -1,0 +1,1 @@
+../../../../_shared/commands/search-docs.md
