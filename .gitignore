@@ -30,6 +30,7 @@ public/sitemap.xml
 
 # Claude settings
 .claude/settings.local.json
+.claude/.contract-hash
 /supabase/.temp/
 
 # wrangler files
