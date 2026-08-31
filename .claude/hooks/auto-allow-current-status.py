@@ -1,0 +1,1 @@
+../../../../_shared/hooks/auto-allow-current-status.py

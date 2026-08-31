@@ -1,179 +1,189 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "sonnet",
-  "env": {
-    "ANTHROPIC_MODEL": "claude-sonnet-5",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-5",
-    "ANTHROPIC_SMALL_FAST_MODEL": "claude-haiku-4-5-20251001",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-5",
-    "BASH_DEFAULT_TIMEOUT_MS": "60000",
-    "BASH_MAX_OUTPUT_LENGTH": "20000",
-    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
-    "NODE_ENV": "development"
-  },
-  "effortLevel": "high",
-  "outputStyle": "default",
-  "language": "spanish",
-  "cleanupPeriodDays": 30,
-  "respectGitignore": true,
-  "enableAllProjectMcpServers": false,
-  "enabledMcpjsonServers": [
-  ],
-  "permissions": {
-    "allow": [
-      "Bash",
-      "Edit",
-      "MultiEdit",
-      "Write",
-      "Bash(pnpm:*)",
-      "Bash(npm:*)",
-      "Bash(npx:*)",
-      "Bash(node:*)",
-      "Bash(git:*)",
-      "Bash(eslint:*)",
-      "Bash(tsc:*)",
-      "Bash(vite:*)",
-      "Bash(ls:*)",
-      "Bash(cat:*)",
-      "Bash(grep:*)",
-      "Bash(find:*)",
-      "Bash(tree:*)",
-      "Bash(curl *)",
-      "mcp__ai-os-orchestrator__list_worlds",
-      "mcp__ai-os-orchestrator__get_world_context",
-      "mcp__ai-os-orchestrator__get_cowork_brief",
-      "mcp__ai-os-orchestrator__search_decisions",
-      "mcp__time-tracker__start_task",
-      "mcp__time-tracker__end_task",
-      "Skill(run)"
-    ],
-    "deny": [
-      "Bash(wget:*)",
-      "Bash(rm -rf:*)",
-      "Bash(del:*)",
-      "Bash(rmdir:*)",
-      "Bash(sudo:*)",
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./**/.env)",
-      "Read(~/.ssh/**)",
-      "Read(./node_modules/**)",
-      "Read(./**/*.log)"
-    ],
-    "defaultMode": "acceptEdits"
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cat .claude/CONVENTIONS.md 2\u003e/dev/null || true"
-          }
-        ]
-      },
-      {
-        "matcher": "clear",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/on-clear.sh"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$AI_OS_ROOT/_shared/scripts/check-contract-drift.sh\" 2\u003e/dev/null || true"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/ensure-tunnel.sh"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scanner.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/force-push-blocker.py\""
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "graphify hook-guard search"
-          }
-        ]
-      },
-      {
-        "matcher": "Read|Glob",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "graphify hook-guard read"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/current-status-linecount.py"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude has finished working\" with title \"Claude Code\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send \u0027Claude Code\u0027 \"Claude has finished working\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude has finished working\" -Title \"Claude Code\"; fi"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude needs your input\" with title \"Claude Code\" sound name \"Ping\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send -u critical \u0027Claude Code\u0027 \"Claude needs your input\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude needs your input\" -Title \"Claude Code\"; fi"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -ClearLock; fi"
-          }
-        ]
-      }
-    ]
-  }
+    "$schema":  "https://json.schemastore.org/claude-code-settings.json",
+    "model":  "sonnet",
+    "env":  {
+                "ANTHROPIC_MODEL":  "claude-sonnet-5",
+                "ANTHROPIC_DEFAULT_OPUS_MODEL":  "claude-opus-5",
+                "ANTHROPIC_SMALL_FAST_MODEL":  "claude-haiku-4-5-20251001",
+                "CLAUDE_CODE_SUBAGENT_MODEL":  "claude-sonnet-4-5",
+                "BASH_DEFAULT_TIMEOUT_MS":  "60000",
+                "BASH_MAX_OUTPUT_LENGTH":  "20000",
+                "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR":  "1",
+                "NODE_ENV":  "development"
+            },
+    "effortLevel":  "high",
+    "outputStyle":  "default",
+    "language":  "spanish",
+    "cleanupPeriodDays":  30,
+    "respectGitignore":  true,
+    "enableAllProjectMcpServers":  false,
+    "enabledMcpjsonServers":  [
+
+                              ],
+    "permissions":  {
+                        "allow":  [
+                                      "Bash",
+                                      "Edit",
+                                      "MultiEdit",
+                                      "Write",
+                                      "Bash(pnpm:*)",
+                                      "Bash(npm:*)",
+                                      "Bash(npx:*)",
+                                      "Bash(node:*)",
+                                      "Bash(git:*)",
+                                      "Bash(eslint:*)",
+                                      "Bash(tsc:*)",
+                                      "Bash(vite:*)",
+                                      "Bash(ls:*)",
+                                      "Bash(cat:*)",
+                                      "Bash(grep:*)",
+                                      "Bash(find:*)",
+                                      "Bash(tree:*)",
+                                      "Bash(curl *)",
+                                      "mcp__ai-os-orchestrator__list_worlds",
+                                      "mcp__ai-os-orchestrator__get_world_context",
+                                      "mcp__ai-os-orchestrator__get_cowork_brief",
+                                      "mcp__ai-os-orchestrator__search_decisions",
+                                      "mcp__time-tracker__start_task",
+                                      "mcp__time-tracker__end_task",
+                                      "Skill(run)"
+                                  ],
+                        "deny":  [
+                                     "Bash(wget:*)",
+                                     "Bash(rm -rf:*)",
+                                     "Bash(del:*)",
+                                     "Bash(rmdir:*)",
+                                     "Bash(sudo:*)",
+                                     "Read(./.env)",
+                                     "Read(./.env.*)",
+                                     "Read(./**/.env)",
+                                     "Read(~/.ssh/**)",
+                                     "Read(./node_modules/**)",
+                                     "Read(./**/*.log)"
+                                 ],
+                        "defaultMode":  "acceptEdits"
+                    },
+    "hooks":  {
+                  "SessionStart":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "cat .claude/CONVENTIONS.md 2\u003e/dev/null || true"
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "matcher":  "clear",
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "bash .claude/hooks/on-clear.sh"
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "bash \"$AI_OS_ROOT/_shared/scripts/check-contract-drift.sh\" 2\u003e/dev/null || true"
+                                                         }
+                                                     ]
+                                       },
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "bash .claude/hooks/ensure-tunnel.sh"
+                                                         }
+                                                     ]
+                                       }
+                                   ],
+                  "PreToolUse":  [
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scanner.py"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/force-push-blocker.py\""
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "graphify hook-guard search"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Read|Glob",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "graphify hook-guard read"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Bash",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/current-status-linecount.py"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Edit|Write|MultiEdit",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/auto-allow-current-status.py"
+                                                       }
+                                                   ]
+                                     }
+                                 ],
+                  "Stop":  [
+                               {
+                                   "hooks":  [
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude has finished working\" with title \"Claude Code\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send \u0027Claude Code\u0027 \"Claude has finished working\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude has finished working\" -Title \"Claude Code\"; fi"
+                                                 }
+                                             ]
+                               }
+                           ],
+                  "Notification":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "if command -v osascript \u003e/dev/null 2\u003e\u00261; then osascript -e \u0027display notification \"Claude needs your input\" with title \"Claude Code\" sound name \"Ping\"\u0027; elif command -v notify-send \u003e/dev/null 2\u003e\u00261; then notify-send -u critical \u0027Claude Code\u0027 \"Claude needs your input\"; elif command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -Message \"Claude needs your input\" -Title \"Claude Code\"; fi"
+                                                         }
+                                                     ]
+                                       }
+                                   ],
+                  "UserPromptSubmit":  [
+                                           {
+                                               "hooks":  [
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "if command -v powershell.exe \u003e/dev/null 2\u003e\u00261; then powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/simple-notifications.ps1\" -ClearLock; fi"
+                                                             }
+                                                         ]
+                                           }
+                                       ]
+              }
 }
