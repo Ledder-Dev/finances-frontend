@@ -65,6 +65,7 @@ TASKS.md
 AGENTS.md
 COWORK.md
 opencode.json
+.opencode/*
 # Archivos temporales
 *.tmp
 *.temp

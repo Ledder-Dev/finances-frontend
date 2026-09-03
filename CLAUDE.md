@@ -1,7 +1,9 @@
 # Mundo: finances-frontend
 
 @../../CLAUDE.md
-@$AI_OS_ROOT/_shared/contracts/finances/api-contract.yaml
+
+## Contrato de API
+Ruta (leer a demanda, no auto-cargar): `$AI_OS_ROOT/_shared/contracts/finances/api-contract.yaml`
 
 ## Contexto específico
 Frontend single-page (React 19 + Vite), tracker finanzas personales/familiares. Consume `finances-api` (puerto 3001): login/signup, compras/recibos OCR, ingresos/gastos, ahorros, deudas, remesas familiares, sync bancario vía Plaid. Repo: https://github.com/Ledder-Dev/finances-frontend (repo viejo `camachoeng/finances-frontend` queda como remote secundario `camachoeng`, sin actividad)
