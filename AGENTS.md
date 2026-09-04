@@ -15,7 +15,7 @@ Vanilla JS (ES6+) + HTML + CSS, sin framework UI. Vite 6 solo pa dev server/buil
 - Patterns reutilizables → `/learn` pa añadir al universo.
 
 ## Estado actual
-Ver `TASKS.md` (carril doing) y `.claude/CURRENT_STATUS.md`.
+Ver `TASKS.md` (carril doing) y `CURRENT_STATUS.md`.
 
 ## Subagentes recomendados para este proyecto
 - @build (default) — desarrollo general
