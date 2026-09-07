@@ -14,6 +14,7 @@ import { SettingsModal } from './components/SettingsModal.jsx';
 import { HeroBanner } from './dashboard/HeroBanner.jsx';
 import { SummaryGrid } from './dashboard/SummaryGrid.jsx';
 import { AnalysisTab } from './analysis/AnalysisTab.jsx';
+import { CompareTab } from './products/CompareTab.jsx';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -79,6 +80,7 @@ export function Layout() {
           {id === 'family' && <FamilyTab active={activeTab === 'family'} />}
           {id === 'analysis' && <AnalysisTab active={activeTab === 'analysis'} />}
           {id === 'bank' && <BankTab active={activeTab === 'bank'} onPendingCountChange={setBankPendingCount} />}
+          {id === 'compare' && <CompareTab active={activeTab === 'compare'} />}
         </div>
       ))}
 
