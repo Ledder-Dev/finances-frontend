@@ -9,11 +9,11 @@ function categoriesFor(dbTxCategories, type) {
 export function TellerReviewCard({ tx, onAdd, onDismiss }) {
   const [dbTxCategories] = useTxCategories();
   const [type, setType] = useState(tx.type);
-  const [category, setCategory] = useState(categoriesFor(dbTxCategories, tx.type)[0] || '');
+  const [category, setCategory] = useState('');
 
   const changeType = (newType) => {
     setType(newType);
-    setCategory(categoriesFor(dbTxCategories, newType)[0] || '');
+    setCategory('');
   };
 
   const categories = categoriesFor(dbTxCategories, type);
@@ -37,6 +37,7 @@ export function TellerReviewCard({ tx, onAdd, onDismiss }) {
         <input
           type="text"
           list={`teller-cat-list-${tx.teller_id}`}
+          placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           style={{ padding: '6px 10px', border: '1px solid #ddd', borderRadius: 6, fontSize: 13, flex: 1, minWidth: 120 }}

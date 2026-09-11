@@ -24,7 +24,13 @@ Cada task done en `TASKS.md` documenta gaps cross-dominio dejados a propósito
 la entrada de cada task en `TASKS.md` para el detalle completo.
 
 **Merge a `develop`/`master` explícitamente NO hecho** — instrucción del usuario.
-Rama de trabajo activa: `devRandy` (renombrada de `development`, local + remoto).
+Rama de trabajo activa: `develop` (`devRandy` eliminada local+remota, sin commits propios pendientes).
+
+## Tab Compare (2026-09-06)
+
+Gap de #031 cerrado: `src/products/CompareTab.jsx` compara productos por precio
+(mejor precio agrupado por `product_type`, normalizado a unidad base cuando aplica
+Oz/Lb). Ver detalle en `TASKS.md` #037.
 
 **Verificación en cutover:** `npm run build` + `npm test -- --run`.
 
