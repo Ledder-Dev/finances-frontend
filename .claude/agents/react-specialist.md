@@ -1,1 +1,0 @@
-../../../../_shared/agents/react/react-specialist.md

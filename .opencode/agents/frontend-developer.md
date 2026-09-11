@@ -1,1 +1,0 @@
-../../../../_shared/agents/react/frontend-developer.md

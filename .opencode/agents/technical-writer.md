@@ -1,1 +1,0 @@
-../../../../_shared/agents/docs/technical-writer.md

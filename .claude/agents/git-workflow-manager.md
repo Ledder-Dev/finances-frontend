@@ -1,1 +1,0 @@
-../../../../_shared/agents/git/git-workflow-manager.md
