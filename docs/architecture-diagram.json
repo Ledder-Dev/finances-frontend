@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Finances Frontend Architecture",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Ledder-Dev/finances-frontend",
+      "provider": "github",
+      "revision": "ea4c7d6bdfb6d0bf95529868fa70750267175504"
+    }
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "React 19 SPA",
+      "sublabel": "Vite dev :5173",
+      "pos": [40, 240],
+      "size": [140, 70],
+      "sources": [
+        { "path": "src/main.jsx", "label": "entry" },
+        { "path": "src/App.jsx", "label": "root" }
+      ]
+    },
+    {
+      "id": "cloudflare",
+      "type": "cloud",
+      "label": "Cloudflare Pages",
+      "sublabel": "CDN + hosting",
+      "pos": [260, 240],
+      "size": [140, 70]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "finances-api",
+      "sublabel": "backend :3001",
+      "pos": [480, 240],
+      "size": [140, 70],
+      "sources": [
+        { "path": "src/api.js", "label": "client" }
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "PostgreSQL",
+      "sublabel": "durable state",
+      "pos": [700, 240],
+      "size": [140, 70]
+    },
+    {
+      "id": "plaid",
+      "type": "external",
+      "label": "Plaid Link",
+      "sublabel": "bank sync API",
+      "pos": [480, 80],
+      "size": [140, 70],
+      "sources": [
+        { "path": "src/family-bank/BankTab.jsx", "label": "integration" }
+      ]
+    },
+    {
+      "id": "chartjs",
+      "type": "external",
+      "label": "Chart.js CDN",
+      "sublabel": "visualization",
+      "pos": [40, 80],
+      "size": [140, 70],
+      "sources": [
+        { "path": "src/analysis/AnalysisTab.jsx", "label": "charts" }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "browser",
+      "to": "cloudflare",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "from": "cloudflare",
+      "to": "api",
+      "label": "fetch + cookie session",
+      "labelDy": 59
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "label": "SQL"
+    },
+    {
+      "from": "browser",
+      "to": "plaid",
+      "label": "OAuth + bank sync",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "from": "browser",
+      "to": "chartjs",
+      "label": "load CDN",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDx": -40
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Frontend Stack",
+      "items": [
+        "React 19 + Vite 6 SPA without router",
+        "Domain-driven structure (products, transactions, receipts, savings, debts, family-bank, analysis)",
+        "Global state via AppStateContext",
+        "Auth via AuthContext + cookie session"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Backend Integration",
+      "items": [
+        "finances-api backend :3001",
+        "Session cookies (credentials: include)",
+        "apiFetch wrapper intercepts 401",
+        "Contract: _shared/contracts/finances/api-contract.yaml"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "External Services",
+      "items": [
+        "Plaid Link: bank account sync",
+        "Chart.js CDN: trend visualizations",
+        "Deployed on Cloudflare Pages"
+      ]
+    }
+  ]
+}
